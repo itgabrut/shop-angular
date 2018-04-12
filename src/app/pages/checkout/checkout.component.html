@@ -1,0 +1,46 @@
+<div class="container cont">
+  <div class="row">
+    <div class="col-8">
+      <div class="white">
+        <div class="container">
+          <h1>Your shopping bag:</h1>
+          <ul>
+            <li *ngFor="let entrance of helpArray">
+              <div class="card">
+                <div class="row">
+                <img class="card-inline" [src]="'http://localhost:8080/foto/'+entrance.item.id">
+                <div class="card-body card-inline">
+                  <h5 class="card-title">Card title: {{entrance.item.description}}</h5>
+                  <p class="card-text"><h3>Price: {{entrance.item.price * entrance.quan}} $</h3>
+                  <hr>
+                  <p>Quantity: {{entrance.quan}}</p>
+                </div>
+                  <!--<button class="btn bouton-image">Go somewhere</button>-->
+                  <div class="myButton"><INPUT type="submit" name="" value="" (click)="minusItem(entrance.item)"></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="white">
+      <div class="card sideCard" scrollCap>
+        <!--<img class="card-img-top" src="https://images.pexels.com/photos/236047/pexels-photo-236047.jpeg?auto=compress&cs=tinysrgb&h=350">-->
+        <div class="card-body">
+          <a href="#" class="btn btn-primary btn-lg btn-block">Back to store</a>
+          <h2 class="card-title">Price details:</h2>
+          <p class="card-text"><h3>Total:  200$</h3>
+          <p class="card-text">Discount:  ---</p>
+          <p class="card-text"><h4>Delivery charges: 30$</h4>
+          <hr>
+          <h2>Sum: 230$</h2>
+          <a href="#" class="btn btn-primary btn-lg btn-block">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+</div>

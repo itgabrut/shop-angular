@@ -1,0 +1,10 @@
+.card{
+  display: inline-block;
+  max-width: 19rem;
+  margin: 8px;
+  margin-top: 5%;
+  vertical-align:top;
+}
+.card-img-top{
+  height: 15rem;
+}

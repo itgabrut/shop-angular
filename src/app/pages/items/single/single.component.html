@@ -1,0 +1,83 @@
+<div class="container cont">
+  <div class="white">
+  <div class="row">
+  <div class="col-6">
+    <div *ngFor="let img of slides;let i = index" [hidden]="img.hidden" class="mySlides">
+      <div class="numbertext">{{i+1}} / {{slides.length}}</div>
+      <img *ngIf="i==0" [src]="img.src" style="width:100%" class="img-responsive fixed">
+      <img *ngIf="i!==0" [src]="'http://localhost:8080/fotos?path='+img.src" style="width:100%" class="img-responsive fixed">
+    </div>
+
+    <!-- Next and previous buttons -->
+    <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+    <a class="next" (click)="plusSlides(1)">&#10095;</a>
+
+    <!-- Image text -->
+    <div class="caption-container">
+      <p id="caption">asdadasdasdasdasdasdasd</p>
+    </div>
+
+    <!-- Thumbnail images -->
+    <div class="row">
+      <div style="margin-left: 4%">
+      <div *ngFor="let img of slides;let i = index" class="column">
+        <img *ngIf="i==0" class="demo cursor" [src]="img.src" style="width: 100%" (click)="currentSlide(i)">
+        <img *ngIf="i!=0" class="demo cursor" [src]="'http://localhost:8080/fotos?path='+img.src" style="width:100%" (click)="currentSlide(i)" alt="The Woods">
+      </div>
+      <!--<div class="column">-->
+        <!--<img class="demo cursor" src="https://images.pexels.com/photos/236047/pexels-photo-236047.jpeg?auto=compress&cs=tinysrgb&h=350" style="width:100%" (click)="currentSlide(1)" alt="Nature and sunrise">-->
+      <!--</div>-->
+      <!--<div class="column">-->
+        <!--<img class="demo cursor" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwDyYzbW1K4d79neRIvOsKI5VT88ogS1xxgOxDzS53HkbPYEI6" style="width:100%" (click)="currentSlide(2)" alt="Snowy Mountains">-->
+      <!--</div>-->
+      </div>
+    </div>
+  </div>
+  <div class="col-5 offset-1">
+    <div class="cont1 span_2_of_a1 simpleCart_shelfItem">
+      <h1>Super s</h1>
+      <hr/>
+
+      <p class="availability">Наличие: <span class="color">Осталось только: {{item.quantity}}</span></p>
+
+
+      <div class="price_single">
+        <span class="item_price">1&nbsp;200 $ </span>
+      </div>
+      <h2 >Детали:</h2>
+      <p class="quick_desc">     bla-bla-bla-blaaaaaaaaaaaaaaaaa
+      </p>
+      <br/>
+      <hr/>
+      <div class="quantity_box">
+        <ul class="product-qty">
+          <span>Количество:</span>
+          <select #selected id="selectf">
+            <option *ngFor="let quan of [] | range:item.quantity;index as i">{{i+1}}</option>
+          </select>
+        </ul>
+      </div>
+      <a href="#" class="btn btn-primary btn-normal btn-inline btn_form button" onclick="addItemToBucket(10043,1200,$('#selectf').val())" target="_self">Добавить в корзину</a>
+  </div>
+  </div>
+  </div>
+</div>
+<div class="container">
+<div class="sap_tabs">
+  <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+
+    <div class="resp-tabs-container">
+      <div class="tab-1 resp-tab-content resp-tab-content-active" aria-labelledby="tab_item-0" style="display:block">
+        <div class="facts">
+          <ul class="tab_list">
+            <li><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequadsdsdtaugue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationclaritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothicae</p></li>
+
+            <li><p>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

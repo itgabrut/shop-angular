@@ -1,0 +1,44 @@
+
+.header-items{
+  /*background-image:linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3)), url(../../../assets/fontvar1.jpg);*/
+  /*background-size: 100% auto;*/
+  /* Center and scale the image nicely */
+  /*background-position: center;*/
+  /*background-repeat: no-repeat;*/
+  min-height:280px;
+  text-align: center;
+}
+
+
+.korzina{
+  background-color: darkgoldenrod!important;
+  font-size: 1rem !important;
+  font-family: Georgia;
+  max-width: 65%;
+  text-align: left;
+  padding-left: 4px;
+  color:black!important;
+  border-radius: 16px;
+  margin-left: 10%;
+}
+
+.bucket-img{
+  position: relative;
+  top: -43%;
+  right: 3%;
+  height: 54px;
+}
+.user{
+  width: 17px;
+  height: 17px;
+  background: url("../../../assets/img-sprite.png");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-origin: padding-box;
+  background-position-x: -241px;
+  background-position-y: -67px;
+  background-size: auto auto;
+}
+
+

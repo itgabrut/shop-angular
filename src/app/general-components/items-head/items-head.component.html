@@ -1,0 +1,61 @@
+<!--<div class="header-items">-->
+<div class="container cont">
+  <div class="white">
+    <br/>
+    <div class="row justify-content-between">
+
+      <div class="col-4">
+        <div class="korzina">
+          <a [routerLink]="'/checkout'">
+            <div class="ib">
+              <h4>
+                <p>Cart:
+                  <span id="simpleCart_quantity">
+                         {{amount}}
+                        </span> items
+                </p>
+                <p>Sum: <span class="simpleCart_total">
+                        {{sum}} $
+                    </span></p>
+              </h4>
+            </div>
+            <div class="ib">
+              <img src="../../../assets/bag.png" class="bucket-img">
+            </div>
+          </a>
+          <a href="#" (click)="emptyBucket()" style="float: right;"><p>Empty card</p></a>
+        </div>
+
+      </div>
+
+      <div class="col-4 text-center">
+        <p class="langg"><a href="?locale=en">English</a>|<a href="?locale=ru_Ru">Русский</a></p>
+        <a href="account">
+          <div class="user ib"></div>
+          <div class="ib" style="width: 8rem">
+            <li style="margin-left: 15%">My account</li>
+          </div>
+        </a>
+      </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="row justify-content-between">
+      <div class="col-4 text-center">
+        <h1>Furniture ++</h1>
+      </div>
+      <div class="col-4 text-center">
+        <div class="ib">
+          <a href="ordersList"><h3>Orders List</h3></a>
+        </div>
+        |
+        <div class="ib">
+          <a href="news"><h3>News</h3></a>
+        </div>
+      </div>
+    </div>
+    <!--</div>-->
+  </div>
+</div>
+
+

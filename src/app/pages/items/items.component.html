@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-3 col-2">
+    <app-tree-el></app-tree-el>
+  </div>
+  <div class="col-md-9 col-10">
+    <br>
+    <div class="row align-items-center justify-content-center">
+      <ngb-pagination [collectionSize]="items.length"
+                      [pageSize]="showOnPage"
+                      [(page)]="page"
+                      [boundaryLinks]="true"
+      (pageChange)="changePage($event)"></ngb-pagination>
+    </div>
+    <div *ngFor="let item of test();let i=index"  class="card" (click)="goToItem(item)">
+      <!--<ng-container *ngIf="displayItems(i)">-->
+      <img class="card-img-top" [src]="'http://localhost:8080/foto/'+item.id">
+      <div class="card-body">
+        <h5 class="card-title">Card title: Item id: {{item.id}} Index: {{i}}</h5>
+        <p class="card-text">Some quick example text to build on the card title - {{item.description}}</p>
+        <button class="btn btn-primary" (click)="addToBacket(item,$event)">Go somewhere</button>
+      </div>
+      <!--</ng-container>-->
+    </div>
+    <br>
+    <div class="row align-items-center justify-content-center">
+      <ngb-pagination [collectionSize]="items.length" [pageSize]="showOnPage" [(page)]="page" [boundaryLinks]="true" (pageChange)="changePage($event)"></ngb-pagination>
+    </div>
+  </div>
+</div>

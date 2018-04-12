@@ -1,0 +1,50 @@
+.card{
+  display: block;
+  margin-top: 2%;
+  margin-bottom: 1%;
+  background-color: inherit!important;
+}
+
+img.card-inline{
+  display: inline-block;
+  max-width: 20rem;
+  max-height: 13rem;
+}
+div.card-inline{
+  display: inline-block;
+  max-width: 18rem;
+
+}
+div.myButton input {
+  background:url(../../../assets/if_Close_22138.png) no-repeat;
+  cursor:pointer;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  margin-top: 3rem;
+  margin-left: 1rem;
+}
+
+.sideCard{
+  position: relative;
+}
+
+.sideCardFixed{
+  position: fixed;
+  width: 24rem;
+  top: 9rem;
+}
+
+/*.bouton-image:before {*/
+  /*content: "";*/
+  /*width: 2rem;*/
+  /*height: 2rem;*/
+  /*display: inline-block;*/
+  /*margin-right: 5px;*/
+  /*vertical-align: text-top;*/
+  /*background-color: transparent;*/
+  /*background-position : center center;*/
+  /*background-repeat:no-repeat;*/
+  /*background-image: url("../../../assets/if_Close_22138.png");*/
+  /*}*/
+
