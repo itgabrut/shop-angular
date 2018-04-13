@@ -1,0 +1,12 @@
+.modal-login{
+  /*background-image: url("../../../assets/Home_Office_Desks_Sauder_Rustic_VSSMTile._CB506707327_.jpg");*/
+  background-color: burlywood;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color:#222222;
+  /*border-bottom: 1px solid lightgrey;*/
+  /*border-left: 1px solid lightgrey;*/
+  /*border-radius: 5px;*/
+  box-shadow: 0 0 7px rgba(0,0,0,0.2),0 0 2px rgba(0,0,0,0.7);
+
+}

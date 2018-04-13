@@ -20,6 +20,7 @@ import {RouteReuseStrategy} from "@angular/router";
 import {CustomReuseStrategy} from "./services/reuseStrategy";
 import {CheckoutComponent} from "./pages/checkout/checkout.component";
 import {ScrollD} from "./directives/scroll-directive";
+import {LoginComponent} from "./general-components/login/login.component";
 
 
 
@@ -34,7 +35,8 @@ import {ScrollD} from "./directives/scroll-directive";
     TreeElComponent,
     SingleComponent,
     RangePipe,
-    ScrollD
+    ScrollD,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

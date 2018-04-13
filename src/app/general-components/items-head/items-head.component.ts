@@ -1,8 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ItemsService} from "../../services/itemsService";
 import {Bucket} from "../../objects/bucket";
 import {Item} from "../../objects/item";
 import {Subscription} from "rxjs/Subscription";
+import {LoginComponent} from "../login/login.component";
 
 @Component({
   selector: 'app-items-head',
@@ -15,6 +16,8 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
   amount:number = 0;
   sum:number = 0;
   subscription:Subscription;
+
+  @ViewChild(LoginComponent) loginEl:LoginComponent;
 
 
   constructor(private itemService: ItemsService) {
@@ -40,6 +43,11 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
 
   emptyBucket(){
     this.itemService.emptyBucket();
+    return false;
+  }
+
+  openLogin(){
+    this.loginEl.open();
     return false;
   }
 }
