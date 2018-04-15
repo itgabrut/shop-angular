@@ -4,6 +4,7 @@ import {Bucket} from "../../objects/bucket";
 import {Item} from "../../objects/item";
 import {Subscription} from "rxjs/Subscription";
 import {LoginComponent} from "../login/login.component";
+import {LoginService} from "../../services/login-service";
 
 @Component({
   selector: 'app-items-head',
@@ -15,16 +16,17 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
   bucket: Bucket;
   amount:number = 0;
   sum:number = 0;
-  subscription:Subscription;
+  itemsSubscription:Subscription;
+  loginSubscription:Subscription;
 
   @ViewChild(LoginComponent) loginEl:LoginComponent;
 
 
-  constructor(private itemService: ItemsService) {
+  constructor(private itemService: ItemsService,private loginService:LoginService) {
   }
 
   ngOnInit() {
-   this.subscription= this.itemService.getBucketSubscription().subscribe(bucket => {
+   this.itemsSubscription= this.itemService.getBucketSubscription().subscribe(bucket => {
       this.bucket = bucket;
       this.amount=0;
       this.sum=0;
@@ -33,12 +35,15 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
         this.sum += item.price * quan;
       })
     });
+   this.loginSubscription = this.loginService.loginRequest.subscribe(res => {
+     if(res=='login')this.openLogin();
+   })
 
   }
 
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.itemsSubscription.unsubscribe();
   }
 
   emptyBucket(){

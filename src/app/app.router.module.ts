@@ -4,6 +4,8 @@ import {NgModule} from "@angular/core";
 import {SingleComponent} from "./pages/items/single/single.component";
 import {ItemsComponent} from "./pages/items/items.component";
 import {CheckoutComponent} from "./pages/checkout/checkout.component";
+import {MyOrderComponent} from "./pages/my-order/my-order.component";
+import {LoginGuard} from "./guards/login-guard";
 
 
 const APP_ROUTES: Routes = [
@@ -19,6 +21,7 @@ const APP_ROUTES: Routes = [
   { path: 'single' , component : SingleComponent},
   { path: 'items' , component : ItemsComponent},
   {path:'checkout',component: CheckoutComponent},
+  {path:'myOrders',component: MyOrderComponent,canActivate: [LoginGuard]},
   { path: '', redirectTo:'items', pathMatch:'full'}
 ];
 

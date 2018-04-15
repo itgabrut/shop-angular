@@ -3,6 +3,7 @@ import {ItemsService} from "../../services/itemsService";
 import {Bucket} from "../../objects/bucket";
 import {Subscription} from "rxjs/Subscription";
 import {Item} from "../../objects/item";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-checkout',
@@ -15,7 +16,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   helpArray=[];
   subscription:Subscription;
 
-  constructor(private itemService : ItemsService) { }
+  constructor(private itemService : ItemsService,private router:Router) { }
 
   ngOnInit() {
    this.subscription = this.itemService.getBucketSubscription().subscribe(bucket => {
@@ -38,5 +39,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   minusItem(item:Item){
     this.itemService.minusItem(item);
+  }
+
+  doCheckout(){
+    this.router.navigate(['/myOrders']);
+    return false;
   }
 }

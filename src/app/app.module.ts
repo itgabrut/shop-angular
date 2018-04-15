@@ -21,6 +21,10 @@ import {CustomReuseStrategy} from "./services/reuseStrategy";
 import {CheckoutComponent} from "./pages/checkout/checkout.component";
 import {ScrollD} from "./directives/scroll-directive";
 import {LoginComponent} from "./general-components/login/login.component";
+import {MyOrderComponent} from "./pages/my-order/my-order.component";
+import {LoginGuard} from "./guards/login-guard";
+import {LoginService} from "./services/login-service";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -36,16 +40,18 @@ import {LoginComponent} from "./general-components/login/login.component";
     SingleComponent,
     RangePipe,
     ScrollD,
-    LoginComponent
+    LoginComponent,
+    MyOrderComponent
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
     TreeModule,
     HttpClientModule,
-    AppRouterModule
+    AppRouterModule,
+    FormsModule
   ],
-  providers: [ItemsService,CacheService,{provide:RouteReuseStrategy, useClass: CustomReuseStrategy}],
+  providers: [ItemsService,CacheService,{provide:RouteReuseStrategy, useClass: CustomReuseStrategy},LoginGuard,LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

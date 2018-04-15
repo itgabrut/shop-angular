@@ -1,6 +1,8 @@
 
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgForm} from "@angular/forms";
+import {LoginService} from "../../services/login-service";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   @ViewChild('content') content:ElementRef;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private loginService:LoginService) { }
 
   ngOnInit() {
   }
@@ -30,6 +32,12 @@ export class LoginComponent implements OnInit {
   toggleLogin(){
     this.login = !this.login;
     return false;
+  }
+
+  onSubmit(form:NgForm){
+    console.log(form);
+    console.log(form.value);
+    this.loginService.tryLogin(form.value.username,form.value.password);
   }
 
 }
