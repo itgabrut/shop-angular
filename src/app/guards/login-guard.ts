@@ -13,8 +13,11 @@ export class LoginGuard implements CanActivate{
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('Gyard works');
-    if(!this.loginService.isLogged)this.loginService.loginRequest.next('login');
-    return this.loginService.isLogged;
+    console.log('Guard works');
+    if(!this.loginService.isLogged){
+      this.loginService.loginModalOpenRequest.next('login');
+      return false;
+    }
+    else return this.loginService.isLogged;
   }
 }

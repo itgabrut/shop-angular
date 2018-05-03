@@ -5,6 +5,7 @@ import {Item} from "../../objects/item";
 import {Subscription} from "rxjs/Subscription";
 import {LoginComponent} from "../login/login.component";
 import {LoginService} from "../../services/login-service";
+import {User} from "../../objects/user";
 
 @Component({
   selector: 'app-items-head',
@@ -18,6 +19,8 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
   sum:number = 0;
   itemsSubscription:Subscription;
   loginSubscription:Subscription;
+  logunSuccessSubscrip:Subscription;
+  loggedUser:User = new User();
 
   @ViewChild(LoginComponent) loginEl:LoginComponent;
 
@@ -35,8 +38,11 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
         this.sum += item.price * quan;
       })
     });
-   this.loginSubscription = this.loginService.loginRequest.subscribe(res => {
+   this.loginSubscription = this.loginService.loginModalOpenRequest.subscribe(res => {
      if(res=='login')this.openLogin();
+   });
+   this.logunSuccessSubscrip = this.loginService.loginSuccessSubj.subscribe((result:any) => {
+     if(result && result.id)this.loggedUser = result;
    })
 
   }
@@ -44,6 +50,8 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(): void {
     this.itemsSubscription.unsubscribe();
+    this.loginSubscription.unsubscribe();
+    this.logunSuccessSubscrip.unsubscribe();
   }
 
   emptyBucket(){
@@ -55,4 +63,21 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
     this.loginEl.open();
     return false;
   }
+
+  openDetails(){
+
+  }
+
+  logOut(){
+    this.loginService.logOut();
+  }
+
+  openLoginOrDetails(){
+    if(this.loginService.isLogged){
+      this.openDetails();
+      return false;
+    }
+    else return this.openLogin();
+  }
+
 }

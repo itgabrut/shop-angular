@@ -30,11 +30,15 @@
 
       <div class="col-4 text-center">
         <p class="langg"><a href="?locale=en">English</a>|<a href="?locale=ru_Ru">Русский</a></p>
-        <a href="#" (click)="openLogin()">
+        <a href="#" (click)="openLoginOrDetails()">
           <div class="user ib"></div>
-          <div class="ib" style="width: 8rem">
-            <li style="margin-left: 15%">My account</li>
+          <div class="ib" style="width: 11rem">
+            <li style="margin-left: 5%">My account {{loggedUser.email}}</li>
           </div>
+        </a>
+        <br/>
+        <a href="#" (click)="logOut()">
+         Log out
         </a>
       </div>
     </div>

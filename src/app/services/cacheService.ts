@@ -59,6 +59,12 @@ export class CacheService {
     this.notifyInFlightObservers(key, value);
   }
 
+  remove(key:string){
+    if(this.has(key)){
+      this.cache.delete(key);
+    }
+  }
+
   /**
    * Checks if the a key exists in cache
    */

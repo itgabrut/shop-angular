@@ -11,7 +11,7 @@ import {NgbdDropdownConfig} from "./general-components/items-navtree/nav-tree/dr
 import { TreeElComponent } from './general-components/items-navtree/tree-el/tree-el.component';
 import {TreeModule} from "angular-tree-component";
 import {ItemsService} from "./services/itemsService";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { SingleComponent } from './pages/items/single/single.component';
 import {AppRouterModule} from "./app.router.module";
 import {CacheService} from "./services/cacheService";
@@ -25,6 +25,7 @@ import {MyOrderComponent} from "./pages/my-order/my-order.component";
 import {LoginGuard} from "./guards/login-guard";
 import {LoginService} from "./services/login-service";
 import {FormsModule} from "@angular/forms";
+import {AuthInterceptor} from "./services/interceptors/authInterceptor";
 
 
 
@@ -51,7 +52,17 @@ import {FormsModule} from "@angular/forms";
     AppRouterModule,
     FormsModule
   ],
-  providers: [ItemsService,CacheService,{provide:RouteReuseStrategy, useClass: CustomReuseStrategy},LoginGuard,LoginService],
+  providers:
+    [ItemsService,
+    CacheService,
+    {provide:RouteReuseStrategy, useClass: CustomReuseStrategy},
+    LoginGuard,
+    LoginService,
+      {
+        provide : HTTP_INTERCEPTORS,
+        useClass : AuthInterceptor,
+        multi : true
+      }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
