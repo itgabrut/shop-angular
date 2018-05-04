@@ -1,0 +1,138 @@
+<div class="container">
+  <div class="cont detailsHolder white">
+  <form #form="ngForm" (ngSubmit)="submitUpdateClient(form)">
+    <div class="col-sm-9 offset-1">
+      <div class="form-group row">
+        <label for="username1" class="col-9 col-sm-3 col-form-label">Name</label>
+        <div class="col-9"><input class="form-control" pattern="[a-zA-Z ]*" id="username1" type="text" name="name" [(ngModel)]="user.name"></div>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-9 col-sm-3 col-form-label">Email</label>
+        <div class="col-9"><input class="form-control" id="email" type="email" #email="ngModel" name="email" email [(ngModel)]="user.email">
+          <div [hidden]="email.valid || !email.dirty" class="alert alert-danger">
+            Email invalid
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="surname" class="col-9 col-sm-3 col-form-label">Surname</label>
+        <div class="col-9"><input class="form-control"  pattern="[a-zA-Z ]*" id="surname" type="text" name="surname" [(ngModel)]="user.surname"></div>
+      </div>
+      <div class="form-group row">
+        <label for="birth" class="col-9 col-sm-3 col-form-label">Birth</label>
+        <div class="col-9"><input class="form-control" id="birth" type="date" name="birth" [(ngModel)]="user.birth"></div>
+      </div>
+      <div class="form-group row">
+        <label for="country" class="col-9 col-sm-3 col-form-label">Country</label>
+        <div class="col-9"><input class="form-control" id="country" type="text" name="country" #country="ngModel" required [(ngModel)]="user.address.country">
+          <div [hidden]="country.valid || country.pristine" class="alert alert-danger">
+            Country required
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="city" class="col-9 col-sm-3 col-form-label">City</label>
+        <div class="col-9"><input class="form-control" id="city" type="text" #city="ngModel" required name="city" [(ngModel)]="user.address.city">
+          <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
+            City required
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="zip" class="col-9 col-sm-3 col-form-label">Zip</label>
+        <div class="col-9"><input class="form-control" pattern="\d{6}" id="zip" #zip="ngModel" type="number" name="zip" [(ngModel)]="user.address.zip">
+          <div [hidden]="zip.valid || !zip.dirty" class="alert alert-danger">
+            Zip code consists 6 numbers
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="street" class="col-9 col-sm-3 col-form-label">Street</label>
+        <div class="col-9"><input class="form-control" id="street" #street="ngModel" type="text" required name="street" [(ngModel)]="user.address.street">
+          <div [hidden]="street.valid || street.pristine" class="alert alert-danger">
+            Street required
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="house" class="col-9 col-sm-3 col-form-label">House/app</label>
+        <div class="col-9"><input class="form-control" id="house" type="text" name="houseApp" [(ngModel)]="user.address.house"></div>
+      </div>
+      <!--<div class="form-group row">-->
+        <!--<label for="password1" class="col-3 col-form-label">Password</label>-->
+        <!--<div class="col-9"><input class="form-control" #password="ngModel" id="password1" type="password" required name="password" [(ngModel)]="user.password">-->
+          <!--<div [hidden]="password.valid || password.pristine" class="alert alert-danger">-->
+            <!--Password required-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="form-group row justify-content-between" style="padding-right: 15px;">
+        <button type="button" (click)="openChangePass()" class="btn btn-primary col-3 offset-3">Change Password</button>
+        <button type="submit" [disabled]="!form.valid" class="btn btn-success col-5" style="margin-right: 1rem">Change details</button>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>
+
+<ng-template #passwordChange let-c="close" let-d="dismiss">
+  <div class="white passChange">
+    <div class="modal-header">
+      <div class="row justify-content-center">
+        <h2 class="modal-title">Enter old and new password</h2>
+      </div>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <form #ff="ngForm" (ngSubmit)="applyChangePass(ff)">
+      <div class="modal-body modal-login">
+        <div class="form-group row">
+          <label for="password" class="col-9 col-sm-3 col-form-label">Old Password</label>
+          <div class="col-9">
+            <input #pass="ngModel" ngModel class="form-control" required id="password" type="password" name="password">
+            <div *ngIf="pass.errors && pass.dirty">
+            <div [hidden]="pass.valid || pass.pristine || pass.value != '' " class="alert alert-danger">
+              Password required
+            </div>
+              <div [hidden]="!pass.errors.wrong" class="alert alert-danger">
+                Wrong password
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="passwordNew" class="col-9 col-sm-3 col-form-label">New Password</label>
+          <div class="col-9">
+            <input #pass2="ngModel" ngModel class="form-control" required id="passwordNew" type="password"
+                   name="passwordNew">
+            <div [hidden]="pass2.valid || pass2.pristine" class="alert alert-danger">
+              Password required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="passwordNew2" class="col-9 col-sm-3 col-form-label">New password confirm</label>
+          <div class="col-9">
+            <input #pass3="ngModel" ngModel class="form-control" required id="passwordNew2" type="password"
+                   name="passwordNew2">
+            <div *ngIf="pass3.errors && pass3.dirty">
+              <div [hidden]="pass3.valid || pass3.pristine || pass3.value != ''" class="alert alert-danger">
+                Password required
+              </div>
+              <div [hidden]="!pass3.errors.notEquals" class="alert alert-danger">
+                Passwords are not equal
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" [disabled]="!ff.valid" class="btn btn-danger">Apply changes</button>
+        <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

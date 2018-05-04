@@ -6,6 +6,7 @@ import {ItemsComponent} from "./pages/items/items.component";
 import {CheckoutComponent} from "./pages/checkout/checkout.component";
 import {MyOrderComponent} from "./pages/my-order/my-order.component";
 import {LoginGuard} from "./guards/login-guard";
+import {MyDetailsComponent} from "./pages/my-details/my-details.component";
 
 
 const APP_ROUTES: Routes = [
@@ -22,6 +23,7 @@ const APP_ROUTES: Routes = [
   { path: 'items' , component : ItemsComponent},
   {path:'checkout',component: CheckoutComponent},
   {path:'myOrders',component: MyOrderComponent,canActivate: [LoginGuard]},
+  {path:'myDetails', component:MyDetailsComponent, canActivate:[LoginGuard]},
   { path: '', redirectTo:'items', pathMatch:'full'}
 ];
 

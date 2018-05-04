@@ -4,6 +4,8 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../objects/user";
 import {Observable} from "rxjs/Observable";
 import {CacheService} from "./cacheService";
+import {NgbDateParserFormatter} from "@ng-bootstrap/ng-bootstrap";
+import {NgForm} from "@angular/forms";
 /**
  * Created by ilya on 15.04.2018.
  */
@@ -15,6 +17,10 @@ export class LoginService {
 
 
   constructor(private http:HttpClient, private cashe:CacheService) {
+    if(sessionStorage.getItem('token')){
+      this._token = sessionStorage.getItem('token');
+      this.isLogged = true;
+    }
   }
 
   private _loginSuccessSubj:Subject<any> = new Subject();
@@ -47,6 +53,7 @@ export class LoginService {
         console.log(answ.headers);
         let auth = answ.headers.get('Authorization');
         this._token = auth;
+        sessionStorage.setItem('token',auth);
         return this.http.get("http://localhost:8080/secure/users/getClient",
           {
             // headers: new HttpHeaders().set('Authorization', auth)
@@ -81,9 +88,16 @@ export class LoginService {
      });
   }
 
+  updateUserDetails(user:User){
+    return this.http.post("http://localhost:8080/secure/users/updateClient",JSON.stringify(user),
+      {
+        headers : new HttpHeaders().set("Content-type",'application/json')
+      })
+  }
+
   getLoggedUser():Observable<any>{
     if(this.isLogged){
-      return this.cashe.get('user',this.http.get("http://localhost:8080/users/getClient"))
+      return this.cashe.get('user',this.http.get("http://localhost:8080/secure/users/getClient"))
     }
     else return Observable.of(new User());
   }
@@ -92,7 +106,12 @@ export class LoginService {
     this._token = '';
     this.isLogged = false;
     this.cashe.remove('user');
+    sessionStorage.removeItem('token');
     this._logoutSuccessSubj.next('logout');
+  }
+
+  changePass(form:NgForm){
+    return this.http.put("http://localhost:8080/secure/users/passChange",form.value);
   }
 
 

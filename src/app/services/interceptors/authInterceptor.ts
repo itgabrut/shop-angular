@@ -1,4 +1,4 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Injectable} from "@angular/core";
 import {LoginService} from "../login-service";
@@ -23,6 +23,15 @@ import {environment} from "../../../environments/environment";
         }
       });
     }
-    return next.handle(req);
+    return next.handle(req).do((event:HttpEvent<any>)=>{
+        if(event instanceof HttpResponse){
+          console.log(event);
+        }
+    },(err:any) => {
+        if(err.status == 401){
+          this.loginService.logOut();
+        }
+      }
+      );
   }
 }

@@ -6,6 +6,7 @@ import {Subscription} from "rxjs/Subscription";
 import {LoginComponent} from "../login/login.component";
 import {LoginService} from "../../services/login-service";
 import {User} from "../../objects/user";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-items-head',
@@ -19,13 +20,13 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
   sum:number = 0;
   itemsSubscription:Subscription;
   loginSubscription:Subscription;
-  logunSuccessSubscrip:Subscription;
+  loginSuccessSubscrip:Subscription;
   loggedUser:User = new User();
 
   @ViewChild(LoginComponent) loginEl:LoginComponent;
 
 
-  constructor(private itemService: ItemsService,private loginService:LoginService) {
+  constructor(private itemService: ItemsService,private loginService:LoginService,private route:Router) {
   }
 
   ngOnInit() {
@@ -41,9 +42,12 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
    this.loginSubscription = this.loginService.loginModalOpenRequest.subscribe(res => {
      if(res=='login')this.openLogin();
    });
-   this.logunSuccessSubscrip = this.loginService.loginSuccessSubj.subscribe((result:any) => {
+   this.loginSuccessSubscrip = this.loginService.loginSuccessSubj.subscribe((result:any) => {
      if(result && result.id)this.loggedUser = result;
-   })
+   });
+    this.loginService.getLoggedUser().subscribe((user:User) => {
+     this.loggedUser = user;
+    });
 
   }
 
@@ -51,7 +55,7 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
   ngOnDestroy(): void {
     this.itemsSubscription.unsubscribe();
     this.loginSubscription.unsubscribe();
-    this.logunSuccessSubscrip.unsubscribe();
+    this.loginSuccessSubscrip.unsubscribe();
   }
 
   emptyBucket(){
@@ -65,7 +69,7 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
   }
 
   openDetails(){
-
+    this.route.navigate(['/myDetails']);
   }
 
   logOut(){
@@ -78,6 +82,16 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
       return false;
     }
     else return this.openLogin();
+  }
+
+  engLocale(){
+    sessionStorage.setItem('locale','en');
+    return false;
+  }
+
+  rusLocale(){
+    sessionStorage.setItem('locale','ru_RU');
+    return false;
   }
 
 }

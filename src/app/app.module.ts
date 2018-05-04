@@ -26,6 +26,8 @@ import {LoginGuard} from "./guards/login-guard";
 import {LoginService} from "./services/login-service";
 import {FormsModule} from "@angular/forms";
 import {AuthInterceptor} from "./services/interceptors/authInterceptor";
+import {LocaleInterceptor} from "./services/interceptors/localeInterceptor";
+import {MyDetailsComponent} from "./pages/my-details/my-details.component";
 
 
 
@@ -42,7 +44,8 @@ import {AuthInterceptor} from "./services/interceptors/authInterceptor";
     RangePipe,
     ScrollD,
     LoginComponent,
-    MyOrderComponent
+    MyOrderComponent,
+    MyDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,13 @@ import {AuthInterceptor} from "./services/interceptors/authInterceptor";
         provide : HTTP_INTERCEPTORS,
         useClass : AuthInterceptor,
         multi : true
-      }],
+      },
+      {
+        provide : HTTP_INTERCEPTORS,
+        useClass : LocaleInterceptor,
+        multi : true
+      }
+      ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

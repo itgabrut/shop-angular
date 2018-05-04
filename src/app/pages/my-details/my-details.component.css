@@ -1,0 +1,14 @@
+.detailsHolder{
+  background-color: gray;
+  font-size: xx-large;
+  margin-top: 3em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.passChange{
+  background: khaki;
+  color: blue;
+  font-size: x-large;
+  font-family: cursive;
+}
