@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ItemsService} from "../../services/itemsService";
 import {Bucket} from "../../objects/bucket";
 import {Item} from "../../objects/item";
@@ -23,6 +23,8 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
   loginSuccessSubscrip:Subscription;
   loggedUser:User = new User();
 
+  locale:string = 'en';
+
   @ViewChild(LoginComponent) loginEl:LoginComponent;
 
 
@@ -30,8 +32,9 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit() {
-   this.itemsSubscription= this.itemService.getBucketSubscription().subscribe(bucket => {
+   this.itemsSubscription= this.itemService.getBucketSubscription().subscribe((bucket:Bucket) => {
       this.bucket = bucket;
+      sessionStorage.setItem("bucket",JSON.stringify(Array.from(bucket.map)));
       this.amount=0;
       this.sum=0;
       this.bucket.map.forEach((quan,item:Item) => {
@@ -48,6 +51,7 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
     this.loginService.getLoggedUser().subscribe((user:User) => {
      this.loggedUser = user;
     });
+    this.itemService.getBucketOnce();
 
   }
 
@@ -86,11 +90,13 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
 
   engLocale(){
     sessionStorage.setItem('locale','en');
+    this.locale = 'en';
     return false;
   }
 
   rusLocale(){
     sessionStorage.setItem('locale','ru_RU');
+    this.locale = 'ru_Ru';
     return false;
   }
 

@@ -11,5 +11,9 @@ export class  Item {
   quantity;
   description;
 
+  equals(item:Item):boolean{
+    return this.id === item.id;
+  }
+
 
 }

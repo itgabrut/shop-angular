@@ -10,6 +10,7 @@ export const environment = {
     catalog:'/catalog',
     items:'/items',
     photo:'/fotos/list',
-    item:'/item'
+    item:'/item',
+    bucket:'/getBucketList'
   }
 };

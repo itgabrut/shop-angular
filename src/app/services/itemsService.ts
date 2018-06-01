@@ -17,7 +17,7 @@ export class ItemsService{
   private bucketSubject = new Subject<Bucket>();
 
 
-  constructor(private http: HttpClient,private cache: CacheService) {
+  constructor(private http: HttpClient, private cache: CacheService) {
   }
 
   getItems():Subject<any>{
@@ -68,13 +68,13 @@ export class ItemsService{
 
   addToBucket(item:Item){
      this.cache.get('bucket',Observable.of(new Bucket())).subscribe((bucket:Bucket) =>{
-       bucket.add(item);
+       bucket.addOne(item);
        this.bucketSubject.next(bucket)
      })
   }
 
   getBucketOnce(){
-     this.cache.get('bucket',Observable.of(new Bucket())).subscribe(bucket => {
+     this.cache.get('bucket',Observable.of(this.getMapFromSessionStorage())).subscribe(bucket => {
       this.bucketSubject.next(bucket);
     })
   }
@@ -94,5 +94,42 @@ export class ItemsService{
       bucket.remove(item);
       this.bucketSubject.next(bucket);
     })
+  }
+
+  synchronizeBucket(){
+    this.http.get(environment.url + '/secure' + environment.gates.bucket).subscribe((answ:Iterable<[Item,number]>) => {
+      let serverBucket = new Bucket();
+      serverBucket.map = new Map(Array.from(answ));
+      this.cache.get('bucket',Observable.of(this.getMapFromSessionStorage())).subscribe((frontBucket:Bucket) => {
+        this.mergeBuckets(frontBucket, serverBucket);
+        this.http.put(environment.url + '/secure' + environment.gates.bucket,Array.from(frontBucket.map.entries())).subscribe(answ => {
+          this.bucketSubject.next(frontBucket);
+        })
+
+      })
+    })
+  }
+
+  private getMapFromSessionStorage():Bucket{
+   let bucket:Bucket = new Bucket();
+     if(sessionStorage.getItem("bucket")){
+       let map:Map<Item,number> = new Map(JSON.parse(sessionStorage.getItem("bucket")));
+       bucket.map = map;
+     }
+     return bucket;
+  }
+
+  private mergeBuckets(frontBucket:Bucket,serverBucket:Bucket):Bucket{
+    serverBucket.map.forEach( (number,item,map) => {
+      for(let [it, num] of Array.from(frontBucket.map)){
+        if(it.equals(item)){
+          frontBucket.mergeItems(it,item);
+          return;
+        }
+      }
+      frontBucket.addAll(item,number)
+    });
+
+    return frontBucket;
   }
 }

@@ -58,7 +58,10 @@ import {MyDetailsComponent} from "./pages/my-details/my-details.component";
   providers:
     [ItemsService,
     CacheService,
-    {provide:RouteReuseStrategy, useClass: CustomReuseStrategy},
+    {
+      provide: RouteReuseStrategy,
+      useClass: CustomReuseStrategy
+    },
     LoginGuard,
     LoginService,
       {

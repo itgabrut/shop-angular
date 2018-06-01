@@ -4,22 +4,40 @@ import {Item} from "./item";
  */
 export class Bucket{
 
-  map:Map<Item,number> = new Map();
+  private _map:Map<Item,number> = new Map();
 
-  add(item:Item){
-    if(this.map.has(item))this.map.set(item,this.map.get(item)+1);
-    else this.map.set(item,1);
+
+  set map(value: Map<Item, number>) {
+    this._map = value;
+  }
+
+
+  get map(): Map<Item, number> {
+    return this._map;
+  }
+
+  addOne(item:Item){
+    if(this._map.has(item))this._map.set(item,this._map.get(item)+1);
+    else this._map.set(item,1);
   }
 
   remove(item:Item){
-    if(this.map.get(item)){
-      let q = this.map.get(item);
-      q > 1 ? this.map.set(item,this.map.get(item)-1) : this.map.delete(item);
+    if(this._map.get(item)){
+      let q = this._map.get(item);
+      q > 1 ? this._map.set(item,this._map.get(item)-1) : this._map.delete(item);
     }
   }
 
   clearAll(){
-    this.map.clear();
+    this._map.clear();
+  }
+
+  mergeItems(it:Item, item:Item){
+    this._map.set(it,this._map.get(it) + item.quantity)
+  }
+
+  addAll(item:Item,quan){
+    this._map.set(item,quan);
   }
 
 }

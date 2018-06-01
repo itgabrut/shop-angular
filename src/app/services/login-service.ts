@@ -6,6 +6,7 @@ import {Observable} from "rxjs/Observable";
 import {CacheService} from "./cacheService";
 import {NgbDateParserFormatter} from "@ng-bootstrap/ng-bootstrap";
 import {NgForm} from "@angular/forms";
+import {ItemsService} from "./itemsService";
 /**
  * Created by ilya on 15.04.2018.
  */
@@ -16,7 +17,7 @@ export class LoginService {
   private _token:string;
 
 
-  constructor(private http:HttpClient, private cashe:CacheService) {
+  constructor(private http:HttpClient, private cashe:CacheService, private itemService:ItemsService) {
     if(sessionStorage.getItem('token')){
       this._token = sessionStorage.getItem('token');
       this.isLogged = true;
@@ -68,6 +69,7 @@ export class LoginService {
         this.isLogged = true;
         this.cashe.set('user',user);
         this._loginSuccessSubj.next(user);
+        this.itemService.synchronizeBucket();
       })
     }
     catch (err) {
