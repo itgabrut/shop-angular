@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Item} from "../../../objects/item";
 import {ItemsService} from "../../../services/itemsService";
@@ -14,7 +14,8 @@ export class SingleComponent implements OnInit {
 
   slideIndex = 1;
   slides=[];
-  item:Item;
+  item:Item = new Item();
+  @ViewChild('selected')selectRef:ElementRef;
 
 
   constructor(private rout:Router, private activeRoute:ActivatedRoute,private itemService:ItemsService) { }
@@ -60,6 +61,14 @@ export class SingleComponent implements OnInit {
         break;
       }
     }
+  }
+
+  addItemsToBucket(){
+    let num = Number(this.selectRef.nativeElement.value);
+    this.item.bucketQuant = num;
+    this.itemService.addToBucket(this.item);
+
+    return false;
   }
 
 }

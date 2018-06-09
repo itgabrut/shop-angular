@@ -34,12 +34,12 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
   ngOnInit() {
    this.itemsSubscription= this.itemService.getBucketSubscription().subscribe((bucket:Bucket) => {
       this.bucket = bucket;
-      sessionStorage.setItem("bucket",JSON.stringify(Array.from(bucket.map)));
+      sessionStorage.setItem("bucket",JSON.stringify(bucket.items));
       this.amount=0;
       this.sum=0;
-      this.bucket.map.forEach((quan,item:Item) => {
-        this.amount += quan;
-        this.sum += item.price * quan;
+      this.bucket.items.forEach((item:Item,ind) => {
+        this.amount += item.bucketQuant;
+        this.sum += item.price * item.bucketQuant;
       })
     });
    this.loginSubscription = this.loginService.loginModalOpenRequest.subscribe(res => {
@@ -51,7 +51,7 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
     this.loginService.getLoggedUser().subscribe((user:User) => {
      this.loggedUser = user;
     });
-    this.itemService.getBucketOnce();
+    this.itemService.notifyBucketSubscribers();
 
   }
 

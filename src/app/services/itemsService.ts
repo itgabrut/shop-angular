@@ -7,6 +7,8 @@ import {Subject} from "rxjs/Subject";
 import {CacheService} from "./cacheService";
 import {Item} from "../objects/item";
 import {Bucket} from "../objects/bucket";
+import {Subscription} from "rxjs/Subscription";
+import {Order} from "../objects/order";
 
 
 @Injectable()
@@ -15,6 +17,7 @@ export class ItemsService{
 
   private itemsSubject = new Subject<any>();
   private bucketSubject = new Subject<Bucket>();
+  private ordersSubscription = new Subject<Order[]>();
 
 
   constructor(private http: HttpClient, private cache: CacheService) {
@@ -68,16 +71,30 @@ export class ItemsService{
 
   addToBucket(item:Item){
      this.cache.get('bucket',Observable.of(new Bucket())).subscribe((bucket:Bucket) =>{
-       bucket.addOne(item);
-       this.bucketSubject.next(bucket)
+       bucket.addItems(item);
+       this.bucketSubject.next(bucket);
+       this.updateServerItems([bucket.findItem(item)])
      })
   }
 
-  getBucketOnce(){
+  // addToBucketMany(item:Item){
+  //   this.cache.get('bucket',Observable.of(new Bucket())).subscribe((bucket:Bucket) =>{
+  //     bucket.addMany(item);
+  //     this.bucketSubject.next(bucket);
+  //     this.updateServerItems([bucket.findItem(item)])
+  //   })
+  // }
+
+  notifyBucketSubscribers(){
      this.cache.get('bucket',Observable.of(this.getMapFromSessionStorage())).subscribe(bucket => {
       this.bucketSubject.next(bucket);
     })
   }
+
+  getBucket():Observable<Bucket>{
+    return this.cache.get('bucket',Observable.of(this.getMapFromSessionStorage()));
+  }
+
 
   getBucketSubscription():Subject<Bucket>{
     return this.bucketSubject;
@@ -86,50 +103,81 @@ export class ItemsService{
   emptyBucket(){
     this.cache.get('bucket',Observable.of(new Bucket())).subscribe((bucket:Bucket) =>{
       bucket.clearAll();
-      this.bucketSubject.next(bucket)
+      this.bucketSubject.next(bucket);
+      this.http.delete(environment.url + '/secure' + environment.gates.bucket).catch(err => {
+        console.log(err);
+        return Observable.throw(err);
+      }).subscribe(answ => console.log(answ))
     })
   }
+
   minusItem(item:Item){
     this.cache.get('bucket',Observable.of(new Bucket())).subscribe((bucket:Bucket) => {
       bucket.remove(item);
       this.bucketSubject.next(bucket);
+      this.updateServerItems([item])
     })
   }
 
   synchronizeBucket(){
-    this.http.get(environment.url + '/secure' + environment.gates.bucket).subscribe((answ:Iterable<[Item,number]>) => {
+    this.http.get(environment.url + '/secure' + environment.gates.bucket).subscribe((answ:Item[]) => {
       let serverBucket = new Bucket();
-      serverBucket.map = new Map(Array.from(answ));
+      serverBucket.items.push.apply(serverBucket.items,answ);
+
       this.cache.get('bucket',Observable.of(this.getMapFromSessionStorage())).subscribe((frontBucket:Bucket) => {
         this.mergeBuckets(frontBucket, serverBucket);
-        this.http.put(environment.url + '/secure' + environment.gates.bucket,Array.from(frontBucket.map.entries())).subscribe(answ => {
-          this.bucketSubject.next(frontBucket);
-        })
-
+        this.updateServerItems(frontBucket.items);
+        this.bucketSubject.next(frontBucket);
       })
     })
   }
 
+  postOrder():Observable<Object>{
+   return this.getBucket().switchMap((bucket:Bucket) => {
+      if(bucket.items.length > 0){
+        return this.http.post(environment.url + '/secure' + environment.gates.order,bucket.items).catch(err => {
+          console.log(err);
+          return Observable.throw(err);
+        })
+      }
+      else return Observable.of('empty bucket');
+    });
+
+  }
+
+  getOrders():Observable<Object>{
+     this.http.get(environment.url+ '/secure' + environment.gates.order).subscribe((res:Order[]) => {
+       this.ordersSubscription.next(res);
+     });
+    return this.ordersSubscription;
+  }
+
+  private updateServerItems(items:Item[]){
+    this.http.put(environment.url + '/secure' + environment.gates.bucket,items).catch(err => {
+      console.log(err);
+      return Observable.throw(err);
+    }).subscribe(answ => {
+      console.log(answ);
+    }, err => {
+      console.error(err);
+    })
+  }
+
+
+
   private getMapFromSessionStorage():Bucket{
    let bucket:Bucket = new Bucket();
      if(sessionStorage.getItem("bucket")){
-       let map:Map<Item,number> = new Map(JSON.parse(sessionStorage.getItem("bucket")));
-       bucket.map = map;
+
+       bucket.items = JSON.parse(sessionStorage.getItem("bucket"));
      }
      return bucket;
   }
 
   private mergeBuckets(frontBucket:Bucket,serverBucket:Bucket):Bucket{
-    serverBucket.map.forEach( (number,item,map) => {
-      for(let [it, num] of Array.from(frontBucket.map)){
-        if(it.equals(item)){
-          frontBucket.mergeItems(it,item);
-          return;
-        }
-      }
-      frontBucket.addAll(item,number)
+    serverBucket.items.forEach(item => {
+      frontBucket.mergeItems(item);
     });
-
     return frontBucket;
   }
 }

@@ -1,0 +1,18 @@
+<ag-grid-angular
+  #agGrid
+  style="width: 100%; height:auto;"
+  class="ag-theme-balham-dark"
+  [enableSorting]="true"
+  [enableFilter]="true"
+  [rowData]="content"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="columnDefs"
+  [domLayout]="domLayout"
+  rowSelection="multiple"
+  [getRowHeight]="getRowHeight"
+  [pagination]="true"
+  [paginationPageSize]="4"
+  [columnTypes]="columnTypes"
+  (gridReady)="onGridReady($event)"
+>
+</ag-grid-angular>

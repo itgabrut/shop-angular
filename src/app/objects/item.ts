@@ -10,6 +10,7 @@ export class  Item {
   theme2;
   quantity;
   description;
+  bucketQuant:number = 1;
 
   equals(item:Item):boolean{
     return this.id === item.id;

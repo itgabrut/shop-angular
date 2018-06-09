@@ -28,6 +28,8 @@ import {FormsModule} from "@angular/forms";
 import {AuthInterceptor} from "./services/interceptors/authInterceptor";
 import {LocaleInterceptor} from "./services/interceptors/localeInterceptor";
 import {MyDetailsComponent} from "./pages/my-details/my-details.component";
+import {AgGridModule} from "ag-grid-angular";
+import {TableComponent} from "./general-components/table/table.component";
 
 
 
@@ -45,7 +47,8 @@ import {MyDetailsComponent} from "./pages/my-details/my-details.component";
     ScrollD,
     LoginComponent,
     MyOrderComponent,
-    MyDetailsComponent
+    MyDetailsComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import {MyDetailsComponent} from "./pages/my-details/my-details.component";
     TreeModule,
     HttpClientModule,
     AppRouterModule,
-    FormsModule
+    FormsModule,
+    AgGridModule.withComponents([])
   ],
   providers:
     [ItemsService,

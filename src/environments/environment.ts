@@ -11,6 +11,7 @@ export const environment = {
     items:'/items',
     photo:'/fotos/list',
     item:'/item',
-    bucket:'/getBucketList'
+    bucket:'/getBucketList',
+    order:'/order'
   }
 };

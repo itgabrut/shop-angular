@@ -22,14 +22,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
    this.subscription = this.itemService.getBucketSubscription().subscribe(bucket => {
       this.bucket = bucket;
       this.helpArray = [];
-      this.bucket.map.forEach((entryVal, entryKey) => {
+      this.bucket.items.forEach((item, index) => {
         this.helpArray.push({
-          item: entryKey,
-          quan: entryVal
+          item: item,
+          quan: item.bucketQuant
         });
       })
     });
-    this.itemService.getBucketOnce();
+    this.itemService.notifyBucketSubscribers();
   }
 
 

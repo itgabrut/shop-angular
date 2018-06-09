@@ -4,40 +4,70 @@ import {Item} from "./item";
  */
 export class Bucket{
 
-  private _map:Map<Item,number> = new Map();
+  private _items:Item[] = [];
 
 
-  set map(value: Map<Item, number>) {
-    this._map = value;
+  addItems(item:Item){
+    let index = this._items.findIndex(it => it.id === item.id);
+    if(index != -1)this._items[index].bucketQuant +=item.bucketQuant;
+    else {
+      this._items.push(Object.assign({},item));
+    }
   }
+  //should be different objects (items)
+  // addMany(item:Item){
+  //   let index = this._items.findIndex(it => it.id === item.id);
+  //   if(index != -1)this._items[index].bucketQuant += item.bucketQuant;
+  //   else {
+  //     this._items.push(item);
+  //   }
+  // }
 
-
-  get map(): Map<Item, number> {
-    return this._map;
-  }
-
-  addOne(item:Item){
-    if(this._map.has(item))this._map.set(item,this._map.get(item)+1);
-    else this._map.set(item,1);
-  }
 
   remove(item:Item){
-    if(this._map.get(item)){
-      let q = this._map.get(item);
-      q > 1 ? this._map.set(item,this._map.get(item)-1) : this._map.delete(item);
+    let ind  = this._items.findIndex(it => it.id === item.id);
+    if(ind != -1){
+      let q = this._items[ind].bucketQuant;
+      if(q > 1){
+        this._items[ind].bucketQuant--
+      }
+      else{
+        this._items[ind].bucketQuant = 0;
+        this._items.splice(ind,1);
+      }
     }
   }
 
   clearAll(){
-    this._map.clear();
+    this._items.forEach(item => item.bucketQuant = 0);
+    this._items = [];
   }
 
-  mergeItems(it:Item, item:Item){
-    this._map.set(it,this._map.get(it) + item.quantity)
+  mergeItems( item:Item){
+    let index = this._items.findIndex(it => it.id === item.id);
+    if(index!= -1){
+      let diff = item.bucketQuant - this._items[index].bucketQuant;
+      this._items[index].bucketQuant = diff > 0 ? item.bucketQuant : this._items[index].bucketQuant;
+    }
+    else this._items.push(item);
   }
 
-  addAll(item:Item,quan){
-    this._map.set(item,quan);
+  findItem(item:Item):Item{
+    let index = this._items.findIndex(it => it.id === item.id);
+    return index == -1 ? null : this._items[index];
   }
 
+  // addAll(item:Item,quan){
+  //   this._map.set(item,quan);
+  // }
+
+
+  get items(): Item[] {
+    return this._items;
+  }
+
+
+  set items(value: Item[]) {
+    this._items = value;
+  }
 }

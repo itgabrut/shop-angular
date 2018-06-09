@@ -1,5 +1,31 @@
-<p>
-  my-order works!
-</p>
+<br>
+<br>
+<ngb-alert *ngIf="!alertClosed" [type]="type" (close)="alertClosed = true">{{alertMessage}}</ngb-alert>
+<div class="container">
+    <app-table [content]="orders"></app-table>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="white">
+    <div class="modal-header">
+      <div class="row justify-content-center">
+        <h2 class="modal-title">Proceed with order!!!</h2>
+      </div>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body modal-login">
+      <div class="row justify-content-center">
+        <p class="orderModalText">Hi! If you want to make order click the button</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="placeOrder()">Make Order!!!</button>
+      <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+    </div>
+  </div>
+</ng-template>
 
 

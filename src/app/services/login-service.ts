@@ -14,7 +14,7 @@ import {ItemsService} from "./itemsService";
 export class LoginService {
 
   isLogged:boolean = false;
-  private _token:string;
+  private _token:string = '';
 
 
   constructor(private http:HttpClient, private cashe:CacheService, private itemService:ItemsService) {
