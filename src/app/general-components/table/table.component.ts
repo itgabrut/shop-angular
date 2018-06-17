@@ -1,17 +1,18 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Order} from "../../objects/order";
 import {AgGridNg2} from "ag-grid-angular";
 import moment = require("moment");
 
-@Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
-})
+  @Component({
+    selector: 'app-table',
+    templateUrl: './table.component.html',
+    styleUrls: ['./table.component.css']
+  })
 export class TableComponent implements OnInit, AfterViewInit {
 
   @ViewChild('agGrid') aggr:AgGridNg2;
   @Input()content;
+  @Output()rowChosen:EventEmitter<any> = new EventEmitter();
 
   api;
   getRowHeight;
@@ -65,6 +66,9 @@ export class TableComponent implements OnInit, AfterViewInit {
   onGridReady(apiEvent){
     this.api = apiEvent.api;
     this.api.sizeColumnsToFit();
+  }
+  onRowSelected(event){
+    this.rowChosen.emit(event.node.data.id);
   }
 
   private randomDate(date:Date,date2:Date):Date{

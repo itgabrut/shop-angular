@@ -15,6 +15,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   bucket: Bucket;
   helpArray=[];
   subscription:Subscription;
+  sum = 0;
 
   constructor(private itemService : ItemsService,private router:Router) { }
 
@@ -22,11 +23,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
    this.subscription = this.itemService.getBucketSubscription().subscribe(bucket => {
       this.bucket = bucket;
       this.helpArray = [];
+      this.sum = 0;
       this.bucket.items.forEach((item, index) => {
         this.helpArray.push({
           item: item,
           quan: item.bucketQuant
         });
+        this.sum += item.price * item.bucketQuant;
       })
     });
     this.itemService.notifyBucketSubscribers();
@@ -42,7 +45,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   doCheckout(){
-    this.router.navigate(['/myOrders']);
+    this.router.navigate(['/myOrders'],{fragment : 'makeOrder'});
     return false;
   }
 }

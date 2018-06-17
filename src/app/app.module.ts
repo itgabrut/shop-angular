@@ -30,6 +30,7 @@ import {LocaleInterceptor} from "./services/interceptors/localeInterceptor";
 import {MyDetailsComponent} from "./pages/my-details/my-details.component";
 import {AgGridModule} from "ag-grid-angular";
 import {TableComponent} from "./general-components/table/table.component";
+import {OrderDetailsComponent} from "./pages/order-details/order-details.component";
 
 
 
@@ -48,7 +49,8 @@ import {TableComponent} from "./general-components/table/table.component";
     LoginComponent,
     MyOrderComponent,
     MyDetailsComponent,
-    TableComponent
+    TableComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,

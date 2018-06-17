@@ -48,6 +48,10 @@ export class ItemsService{
       })
   }
 
+  getItemsByOrder(orderId:number):Observable<Object>{
+    return this.http.get(environment.url + '/secure' + environment.gates.order + '/' + orderId)
+  }
+
   private getItemsByThemeInternal(theme):Observable<any>{
     return this.cache.get('items'+theme,this.http.get(environment.url+environment.gates.items, { params: new HttpParams().set('theme', theme) }));
   }

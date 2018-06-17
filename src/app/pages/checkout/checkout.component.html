@@ -11,9 +11,10 @@
                 <img class="card-inline" [src]="'http://localhost:8080/foto/'+entrance.item.id">
                 <div class="card-body card-inline">
                   <h5 class="card-title">Card title: {{entrance.item.description}}</h5>
-                  <p class="card-text"><h3>Price: {{entrance.item.price * entrance.quan}} $</h3>
+                  <p class="card-text"><h3>Price: {{entrance.item.price}} $</h3>
                   <hr>
-                  <p>Quantity: {{entrance.quan}}</p>
+                  <p class="card-text">Quantity: {{entrance.quan}}
+                  <p class="card-text"><h3>Total: {{entrance.item.price * entrance.quan}} $</h3>
                 </div>
                   <!--<button class="btn bouton-image">Go somewhere</button>-->
                   <div class="myButton"><INPUT type="submit" name="" value="" (click)="minusItem(entrance.item)"></div>
@@ -31,12 +32,11 @@
         <div class="card-body">
           <a href="#" class="btn btn-primary btn-lg btn-block">Back to store</a>
           <h2 class="card-title">Price details:</h2>
-          <p class="card-text"><h3>Total:  200$</h3>
+          <p class="card-text"><h3>Total: {{sum}} $</h3>
           <p class="card-text">Discount:  ---</p>
-          <p class="card-text"><h4>Delivery charges: 30$</h4>
           <hr>
-          <h2>Sum: 230$</h2>
-          <a href="#" (click)="doCheckout()" class="btn btn-primary btn-lg btn-block">Go to checkout</a>
+          <h2>Sum: {{sum}} $</h2>
+          <a href="#" (click)="doCheckout()" [class.disabled]="bucket.items.length < 1" class="btn btn-primary btn-lg btn-block">Go to checkout</a>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {Bucket} from "../../objects/bucket";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {Order} from "../../objects/order";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-my-order',
@@ -22,15 +23,18 @@ export class MyOrderComponent implements OnInit, OnDestroy {
   alertClosed = true;
   orders:Order[];
 
-  constructor(private itemService:ItemsService,private modalService: NgbModal) { }
+  constructor(private itemService:ItemsService,private modalService: NgbModal,private router:Router, private actRouter:ActivatedRoute) { }
 
   ngOnInit() {
-    this.bucketSubscriptions = this.itemService.getBucketSubscription().subscribe((bucket:Bucket) => {
-      if(bucket.items.length > 0){
-        this.openModal();
-      }
+    // this.bucketSubscriptions = this.itemService.getBucketSubscription().subscribe((bucket:Bucket) => {
+    //   if(bucket.items.length > 0){
+    //     this.openModal();
+    //   }
+    // });
+    // this.itemService.notifyBucketSubscribers();
+    this.actRouter.fragment.subscribe(res => {
+      if(res == 'makeOrder')this.openModal();
     });
-    this.itemService.notifyBucketSubscribers();
     this.ordersSubscription = this.itemService.getOrders().subscribe((res:Order[]) => {
       this.orders = res;
     })
@@ -64,9 +68,13 @@ export class MyOrderComponent implements OnInit, OnDestroy {
     });
   }
 
+  onRowChoosen(orderId){
+    if(orderId)this.router.navigate(['/orderDetails',orderId]);
+  }
+
 
   ngOnDestroy(): void {
-    this.bucketSubscriptions.unsubscribe();
+    // this.bucketSubscriptions.unsubscribe();
     this.ordersSubscription.unsubscribe();
   }
 }

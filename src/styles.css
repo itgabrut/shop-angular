@@ -68,3 +68,30 @@ tree-node:last-child > .tree-node > .tree-children::after {
   margin-top: 3%;
 }
 
+.card{
+  display: block;
+  margin-top: 2%;
+  margin-bottom: 1%;
+  background-color: inherit!important;
+}
+
+img.card-inline{
+  display: inline-block;
+  width: 20rem;
+  max-height: 13rem;
+  margin-bottom: 1rem;
+}
+div.card-inline{
+  display: inline-block;
+  max-width: 18rem;
+}
+
+.ag-row-hover{
+  background-color: #82f133 !important;
+  cursor: pointer;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
