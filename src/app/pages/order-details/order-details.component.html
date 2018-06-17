@@ -1,0 +1,44 @@
+<div class="container cont">
+  <div class="row">
+    <div class="col-8">
+      <div class="white">
+      <div class="container">
+        <h1>Your order:</h1>
+        <ul>
+          <li *ngFor="let item of items">
+            <div class="card">
+              <div class="row">
+                <img class="card-inline" [src]="'http://localhost:8080/foto/'+item.id">
+                <div class="card-body card-inline">
+                  <h5 class="card-title">Card title: {{item.description}}</h5>
+                  <p class="card-text">
+                  <h3>Price: {{item.price}} $</h3>
+                  <hr>
+                  <p>Quantity: {{item.bucketQuant}}
+                  <p><h3>Total: {{item.price * item.bucketQuant}} $</h3>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="white">
+        <div class="card sideCard">
+          <!--<img class="card-img-top" src="https://images.pexels.com/photos/236047/pexels-photo-236047.jpeg?auto=compress&cs=tinysrgb&h=350">-->
+          <div class="card-body">
+            <a href="#" class="btn btn-primary btn-lg btn-block">Back to store</a>
+            <h2 class="card-title">Price details:</h2>
+            <p class="card-text"><h3>Total: {{sum}} $</h3>
+            <p class="card-text">Discount:  ---</p>
+            <hr>
+            <h2>Sum: {{sum}} $</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
