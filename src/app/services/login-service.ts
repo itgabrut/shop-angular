@@ -99,7 +99,9 @@ export class LoginService {
 
   getLoggedUser():Observable<any>{
     if(this.isLogged){
-      return this.cashe.get('user',this.http.get("http://localhost:8080/secure/users/getClient"))
+      return this.cashe.get('user',this.http.get("http://localhost:8080/secure/users/getClient")).switchMap((user:User)=>{
+        return Observable.of(Object.assign(new User(),user))
+      })
     }
     else return Observable.of(new User());
   }

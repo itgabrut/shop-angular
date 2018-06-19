@@ -25,6 +25,8 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
 
   locale:string = 'en';
 
+  admin:boolean = false;
+
   @ViewChild(LoginComponent) loginEl:LoginComponent;
 
 
@@ -50,9 +52,9 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
    });
     this.loginService.getLoggedUser().subscribe((user:User) => {
      this.loggedUser = user;
+     this.admin = this.loggedUser.isAdmin();
     });
     this.itemService.notifyBucketSubscribers();
-
   }
 
 
@@ -99,5 +101,6 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
     this.locale = 'ru_Ru';
     return false;
   }
+
 
 }

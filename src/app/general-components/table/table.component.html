@@ -5,7 +5,7 @@
   [enableSorting]="true"
   [enableFilter]="true"
   [rowData]="content"
-  [columnDefs]="columnDefs"
+  [columnDefs]="columnDef ? columnDef : columnDefs"
   [defaultColDef]="columnDefs"
   [domLayout]="domLayout"
   rowSelection="multiple"

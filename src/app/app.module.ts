@@ -31,7 +31,9 @@ import {MyDetailsComponent} from "./pages/my-details/my-details.component";
 import {AgGridModule} from "ag-grid-angular";
 import {TableComponent} from "./general-components/table/table.component";
 import {OrderDetailsComponent} from "./pages/order-details/order-details.component";
-
+import {AdminOrdersComponent} from "./pages/admin-orders/admin-orders.component";
+import {AdminGuard} from "./guards/admin-guard";
+import {AdminService} from "./services/adminService";
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import {OrderDetailsComponent} from "./pages/order-details/order-details.compone
     MyOrderComponent,
     MyDetailsComponent,
     TableComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    AdminOrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -61,26 +64,27 @@ import {OrderDetailsComponent} from "./pages/order-details/order-details.compone
     FormsModule,
     AgGridModule.withComponents([])
   ],
-  providers:
-    [ItemsService,
+  providers: [ItemsService,
     CacheService,
     {
       provide: RouteReuseStrategy,
       useClass: CustomReuseStrategy
     },
     LoginGuard,
+    AdminGuard,
     LoginService,
-      {
-        provide : HTTP_INTERCEPTORS,
-        useClass : AuthInterceptor,
-        multi : true
-      },
-      {
-        provide : HTTP_INTERCEPTORS,
-        useClass : LocaleInterceptor,
-        multi : true
-      }
-      ],
+    AdminService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LocaleInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

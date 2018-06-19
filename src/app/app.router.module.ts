@@ -8,6 +8,8 @@ import {MyOrderComponent} from "./pages/my-order/my-order.component";
 import {LoginGuard} from "./guards/login-guard";
 import {MyDetailsComponent} from "./pages/my-details/my-details.component";
 import {OrderDetailsComponent} from "./pages/order-details/order-details.component";
+import {AdminOrdersComponent} from "./pages/admin-orders/admin-orders.component";
+import {AdminGuard} from "./guards/admin-guard";
 
 
 const APP_ROUTES: Routes = [
@@ -26,6 +28,7 @@ const APP_ROUTES: Routes = [
   {path:'myOrders',component: MyOrderComponent,canActivate: [LoginGuard]},
   {path:'myDetails', component:MyDetailsComponent, canActivate:[LoginGuard]},
   {path:'orderDetails/:id',component: OrderDetailsComponent, canActivate:[LoginGuard]},
+  {path:'adminOrders', component: AdminOrdersComponent, canActivate:[LoginGuard,AdminGuard]},
   { path: '', redirectTo:'items', pathMatch:'full'}
 ];
 

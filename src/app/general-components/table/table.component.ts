@@ -12,6 +12,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   @ViewChild('agGrid') aggr:AgGridNg2;
   @Input()content;
+  @Input()columnDef;
   @Output()rowChosen:EventEmitter<any> = new EventEmitter();
 
   api;

@@ -13,6 +13,12 @@ export class User{
 
   password:string;
 
+  roles:string[] = [];
+
+  isAdmin():boolean{
+    return this.roles.some(role => role === 'ROLE_ADMIN');
+  }
+
 }
 
 class Address{

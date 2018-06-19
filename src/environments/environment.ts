@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  adminPrefix:'/secure/admin',
   url:'http://localhost:8080',
   gates:{
     catalog:'/catalog',
