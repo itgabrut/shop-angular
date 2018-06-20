@@ -68,7 +68,7 @@ export class MyOrderComponent implements OnInit, OnDestroy {
     });
   }
 
-  onRowChoosen(orderId){
+  onRowChosen(orderId){
     if(orderId)this.router.navigate(['/orderDetails',orderId]);
   }
 

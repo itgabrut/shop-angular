@@ -34,6 +34,7 @@ import {OrderDetailsComponent} from "./pages/order-details/order-details.compone
 import {AdminOrdersComponent} from "./pages/admin-orders/admin-orders.component";
 import {AdminGuard} from "./guards/admin-guard";
 import {AdminService} from "./services/adminService";
+import {Dropdown} from "./general-components/bootstrap/dropdown-comp";
 
 
 @NgModule({
@@ -53,7 +54,11 @@ import {AdminService} from "./services/adminService";
     MyDetailsComponent,
     TableComponent,
     OrderDetailsComponent,
-    AdminOrdersComponent
+    AdminOrdersComponent,
+    Dropdown
+  ],
+  entryComponents: [
+    Dropdown
   ],
   imports: [
     BrowserModule,

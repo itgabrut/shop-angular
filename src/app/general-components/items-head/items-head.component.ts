@@ -47,9 +47,12 @@ export class ItemsHeadComponent implements OnInit,OnDestroy {
    this.loginSubscription = this.loginService.loginModalOpenRequest.subscribe(res => {
      if(res=='login')this.openLogin();
    });
+
    this.loginSuccessSubscrip = this.loginService.loginSuccessSubj.subscribe((result:any) => {
      if(result && result.id)this.loggedUser = result;
+     this.admin = this.loggedUser.isAdmin();
    });
+
     this.loginService.getLoggedUser().subscribe((user:User) => {
      this.loggedUser = user;
      this.admin = this.loggedUser.isAdmin();

@@ -2,7 +2,7 @@
 <br>
 <ngb-alert *ngIf="!alertClosed" [type]="type" (close)="alertClosed = true">{{alertMessage}}</ngb-alert>
 <div class="container">
-    <app-table [content]="orders" (rowChosen)="onRowChoosen($event)"></app-table>
+    <app-table [content]="orders" (rowChosen)="onRowChosen($event)"></app-table>
 </div>
 
 

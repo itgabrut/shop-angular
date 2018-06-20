@@ -2,6 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild
 import {Order} from "../../objects/order";
 import {AgGridNg2} from "ag-grid-angular";
 import moment = require("moment");
+import {Dropdown} from "../bootstrap/dropdown-comp";
 
   @Component({
     selector: 'app-table',
@@ -25,11 +26,16 @@ export class TableComponent implements OnInit, AfterViewInit {
   columnDefs = [
     {headerName: "Id", field: "id"},
     {headerName: "Paid by", field: "payway"},
-    {headerName: "Delivery", field: "delivery", cellStyle: { "white-space": "normal" }},
+    {headerName: "Delivery", field: "delivery"},
     {headerName: "Date", field: "date",type:"dateColumn"},
     {headerName: "Delivery Status", field: "deliveryStatus"},
     {headerName: "Pay Status", field: "payStatus"},
   ];
+
+  defColumnDef = {
+    cellStyle: { "white-space": "normal" },
+    autoHeight:true
+  };
 
   columnTypes = {
     dateColumn : {cellFormatter : function (date) {
@@ -51,9 +57,9 @@ export class TableComponent implements OnInit, AfterViewInit {
   });
 
   constructor() {
-    // this.getRowHeight = function (par) {
-    //   return 18 * (Math.floor(par.data.delivery.length / 45) + 1);
-    // }
+    this.getRowHeight = function (par) {
+      return 90;
+    }
   }
 
   ngOnInit() {
@@ -64,12 +70,19 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   }
 
+  getComponents(){
+    return {'drp': Dropdown}
+  }
+
   onGridReady(apiEvent){
     this.api = apiEvent.api;
     this.api.sizeColumnsToFit();
+    apiEvent.columnApi.autoSizeColumns();
   }
   onRowSelected(event){
     this.rowChosen.emit(event.node.data.id);
+    // event.node.setRowHeight(120);
+    // this.api.resetRowHeights();
   }
 
   private randomDate(date:Date,date2:Date):Date{

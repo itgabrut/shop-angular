@@ -91,7 +91,16 @@ div.card-inline{
   cursor: pointer;
 }
 
+.ag-cell{
+  overflow: visible!important;
+}
+
 a.disabled {
   pointer-events: none;
   cursor: default;
+}
+
+.dropdown-menu.show{
+  position: static!important;
+  overflow: visible;
 }
