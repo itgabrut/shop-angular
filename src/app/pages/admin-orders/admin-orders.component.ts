@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Order} from "../../objects/order";
 import {AdminService} from "../../services/adminService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-orders',
@@ -12,7 +13,7 @@ export class AdminOrdersComponent implements OnInit {
   orders:Order[] = [];
 
 
-  constructor(private service:AdminService) { }
+  constructor(private service:AdminService,private router:Router) { }
 
   ngOnInit() {
     this.service.getOrders().subscribe((orders:Order[])=>{
@@ -22,14 +23,20 @@ export class AdminOrdersComponent implements OnInit {
 
   columnDef = [
     {headerName:"Client name", field: "client.name"},
-    {headerName:"Client registered", field: "client.registered"},
+    {headerName:"Client registered", field: "client.registered",type:"dateColumn"},
     {headerName:"Order Id", field: "id"},
     {headerName: "Delivery", field: "delivery"},
     {headerName: "Date", field: "date",type:"dateColumn"},
-    {headerName: "Delivery Status", field: "deliveryStatus",width:280,cellRenderer:'drp',cellRendererParams:{refData:['WAIT','DELIVERED','CANCELLED']} },
-    {headerName: "Pay Status", field: "payStatus"},
+    {headerName: "Delivery Status", field: "deliveryStatus",width:340,cellRenderer:'drp',cellRendererParams:{refData:['WAITING_FOR_PAYMENT','PROCESSED',
+    'DELIVERED','CANCELLED']}},
+    {headerName: "Pay Status", field: "payStatus", cellRenderer:'drp',cellRendererParams:{refData:['WAITING','PAYED']}},
+    {headerName:"Save",cellRenderer:'btn'}
   ];
 
+
+  grnId(data){
+    return data.id;
+  }
   // deliveryStatus(params):string{
   //   return '<div class="row">\
   //     <div class="col">\
@@ -45,5 +52,9 @@ export class AdminOrdersComponent implements OnInit {
   //   </div>'
   //   // return '<button class="btn">Check</button>';
   // }
+
+  rowChosen(orderId){
+    if(orderId)this.router.navigate(['/orderDetails',orderId]);
+  }
 
 }

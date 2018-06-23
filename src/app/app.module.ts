@@ -35,6 +35,8 @@ import {AdminOrdersComponent} from "./pages/admin-orders/admin-orders.component"
 import {AdminGuard} from "./guards/admin-guard";
 import {AdminService} from "./services/adminService";
 import {Dropdown} from "./general-components/bootstrap/dropdown-comp";
+import {Button} from "./general-components/bootstrap/button";
+import {AdminUsersComponent} from "./pages/admin-users/admin-users.component";
 
 
 @NgModule({
@@ -55,10 +57,12 @@ import {Dropdown} from "./general-components/bootstrap/dropdown-comp";
     TableComponent,
     OrderDetailsComponent,
     AdminOrdersComponent,
-    Dropdown
+    AdminUsersComponent,
+    Dropdown,
+    Button
   ],
   entryComponents: [
-    Dropdown
+    Button
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,7 @@ import {Dropdown} from "./general-components/bootstrap/dropdown-comp";
     HttpClientModule,
     AppRouterModule,
     FormsModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([Dropdown])
   ],
   providers: [ItemsService,
     CacheService,

@@ -11,12 +11,12 @@
   rowSelection="none"
   [getRowHeight]="getRowHeight"
   [pagination]="true"
-  [paginationPageSize]="4"
+  [paginationPageSize]="8"
   [columnTypes]="columnTypes"
   (gridReady)="onGridReady($event)"
-  (rowSelected)="onRowSelected($event)"
   (rowClicked)="onRowSelected($event)"
   [frameworkComponents]="getComponents()"
   suppressCellSelection="true"
+  [getRowNodeId]="grnId"
 >
 </ag-grid-angular>

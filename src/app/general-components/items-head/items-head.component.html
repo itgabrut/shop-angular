@@ -50,11 +50,17 @@
         <h1>Furniture ++</h1>
         </a>
       </div>
-      <div class="col-6 text-center">
-        <div *ngIf="admin" class="ib">
-          <a routerLink="adminOrders"><h3>Orders Administration</h3></a>
-        </div>
-        |
+      <div class="col-8 text-center">
+        <ng-container *ngIf="admin">
+          <div class="ib">
+            <a routerLink="adminUsers"><h3>Users</h3></a>
+          </div>
+          |
+          <div class="ib">
+            <a routerLink="adminOrders"><h3>Orders Administration</h3></a>
+          </div>
+          |
+        </ng-container>
         <div class="ib">
           <a routerLink="myOrders"><h3>Orders List</h3></a>
         </div>

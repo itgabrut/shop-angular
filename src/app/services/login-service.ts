@@ -67,8 +67,9 @@ export class LoginService {
       }).subscribe((user: User) => {
         console.log(user);
         this.isLogged = true;
-        this.cashe.set('user',user);
-        this._loginSuccessSubj.next(user);
+        let userObject = Object.assign(new User(),user);
+        this.cashe.set('user',userObject);
+        this._loginSuccessSubj.next(userObject);
         this.itemService.synchronizeBucket();
       })
     }

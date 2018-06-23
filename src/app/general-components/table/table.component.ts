@@ -3,6 +3,7 @@ import {Order} from "../../objects/order";
 import {AgGridNg2} from "ag-grid-angular";
 import moment = require("moment");
 import {Dropdown} from "../bootstrap/dropdown-comp";
+import {Button} from "../bootstrap/button";
 
   @Component({
     selector: 'app-table',
@@ -18,6 +19,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   api;
   getRowHeight;
+  @Input()grnId:Function;
 
 
   // disable overflow scroll
@@ -71,7 +73,10 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   getComponents(){
-    return {'drp': Dropdown}
+    return {
+      'drp': Dropdown,
+      'btn': Button
+    }
   }
 
   onGridReady(apiEvent){

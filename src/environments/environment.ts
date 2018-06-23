@@ -13,6 +13,7 @@ export const environment = {
     photo:'/fotos/list',
     item:'/item',
     bucket:'/getBucketList',
-    order:'/order'
+    order:'/order',
+    clients:'/users'
   }
 };
