@@ -5,9 +5,9 @@ import {AdminService} from "../../services/adminService";
 
 @Component({
   selector  : 'ag-button',
-  template: `<br><button class="btn btn-primary" (click)="makeUpdate()">Update</button>`
+  template: `<br><button class="btn btn-primary" (click)="makeUpdate($event)">Update</button>`
 })
-export class Button implements ICellRendererAngularComp{
+export class OrderUpdateButton implements ICellRendererAngularComp{
 
 
   constructor(private adminService :AdminService) {
@@ -24,7 +24,8 @@ export class Button implements ICellRendererAngularComp{
     return null;
   }
 
-  makeUpdate(){
+  makeUpdate(event){
+    event.stopPropagation();
     this.adminService.updateOrder(this.params.node.data);
   }
 }

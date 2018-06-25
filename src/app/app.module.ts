@@ -35,8 +35,10 @@ import {AdminOrdersComponent} from "./pages/admin-orders/admin-orders.component"
 import {AdminGuard} from "./guards/admin-guard";
 import {AdminService} from "./services/adminService";
 import {Dropdown} from "./general-components/bootstrap/dropdown-comp";
-import {Button} from "./general-components/bootstrap/button";
+import {OrderUpdateButton} from "./general-components/bootstrap/order-update-button";
 import {AdminUsersComponent} from "./pages/admin-users/admin-users.component";
+import {DatePicker} from "./general-components/bootstrap/datepicker";
+import {ClientUpdateButton} from "./general-components/bootstrap/client-update-button";
 
 
 @NgModule({
@@ -59,10 +61,12 @@ import {AdminUsersComponent} from "./pages/admin-users/admin-users.component";
     AdminOrdersComponent,
     AdminUsersComponent,
     Dropdown,
-    Button
+    OrderUpdateButton,
+    ClientUpdateButton,
+    DatePicker
   ],
   entryComponents: [
-    Button
+    OrderUpdateButton
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,7 @@ import {AdminUsersComponent} from "./pages/admin-users/admin-users.component";
     HttpClientModule,
     AppRouterModule,
     FormsModule,
-    AgGridModule.withComponents([Dropdown])
+    AgGridModule.withComponents([Dropdown, DatePicker,ClientUpdateButton])
   ],
   providers: [ItemsService,
     CacheService,

@@ -30,7 +30,7 @@ export class AdminOrdersComponent implements OnInit {
     {headerName: "Delivery Status", field: "deliveryStatus",width:340,cellRenderer:'drp',cellRendererParams:{refData:['WAITING_FOR_PAYMENT','PROCESSED',
     'DELIVERED','CANCELLED']}},
     {headerName: "Pay Status", field: "payStatus", cellRenderer:'drp',cellRendererParams:{refData:['WAITING','PAYED']}},
-    {headerName:"Save",cellRenderer:'btn'}
+    {headerName:"Save",cellRenderer:'orderBtn'}
   ];
 
 

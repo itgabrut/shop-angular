@@ -5,6 +5,7 @@ import {Order} from "../objects/order";
 import {environment} from "../../environments/environment";
 import {HttpParamsOptions} from "@angular/common/http/src/params";
 import {User} from "../objects/user";
+import moment = require("moment");
 /**
  * Created by ilya on 17.06.2018.
  */
@@ -20,7 +21,12 @@ export class AdminService{
   }
 
   getAllClients():Observable<User[]>{
-   return <Observable<User[]>>this.http.get(environment.url+environment.adminPrefix+environment.gates.clients);
+   return <Observable<User[]>>this.http.get(environment.url+environment.adminPrefix+environment.gates.clients).switchMap(res =>{
+     res.forEach(user => {
+       user.birth = moment(user.birth,"DD-MM-YYYY").toDate();
+     });
+     return Observable.of(res);
+   });
   }
 
   updateOrder(node){
@@ -33,6 +39,10 @@ export class AdminService{
       };
 
     this.http.put(environment.url+environment.adminPrefix+environment.gates.order,fromObject).subscribe(resp => console.log(resp))
+  }
+
+  updateClient(evv){
+    console.log(evv);
   }
 
 

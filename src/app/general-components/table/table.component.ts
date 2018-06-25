@@ -3,7 +3,9 @@ import {Order} from "../../objects/order";
 import {AgGridNg2} from "ag-grid-angular";
 import moment = require("moment");
 import {Dropdown} from "../bootstrap/dropdown-comp";
-import {Button} from "../bootstrap/button";
+import {OrderUpdateButton} from "../bootstrap/order-update-button";
+import {DatePicker} from "../bootstrap/datepicker";
+import {ClientUpdateButton} from "../bootstrap/client-update-button";
 
   @Component({
     selector: 'app-table',
@@ -75,7 +77,9 @@ export class TableComponent implements OnInit, AfterViewInit {
   getComponents(){
     return {
       'drp': Dropdown,
-      'btn': Button
+      'orderBtn': OrderUpdateButton,
+      'clientBtn':ClientUpdateButton,
+      'datepicker': DatePicker
     }
   }
 
