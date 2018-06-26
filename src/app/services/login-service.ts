@@ -7,6 +7,7 @@ import {CacheService} from "./cacheService";
 import {NgbDateParserFormatter} from "@ng-bootstrap/ng-bootstrap";
 import {NgForm} from "@angular/forms";
 import {ItemsService} from "./itemsService";
+import {environment} from "../../environments/environment";
 /**
  * Created by ilya on 15.04.2018.
  */
@@ -92,7 +93,7 @@ export class LoginService {
   }
 
   updateUserDetails(user:User){
-    return this.http.post("http://localhost:8080/secure/users/updateClient",JSON.stringify(user),
+    return this.http.post("http://localhost:8080/secure"+environment.gates.updateClients,JSON.stringify(user),
       {
         headers : new HttpHeaders().set("Content-type",'application/json')
       })

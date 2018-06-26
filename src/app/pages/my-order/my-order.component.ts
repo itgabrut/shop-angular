@@ -4,7 +4,8 @@ import {Subscription} from "rxjs/Subscription";
 import {Bucket} from "../../objects/bucket";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {Order} from "../../objects/order";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {AdminService} from "../../services/adminService";
 
 @Component({
   selector: 'app-my-order',
@@ -23,19 +24,14 @@ export class MyOrderComponent implements OnInit, OnDestroy {
   alertClosed = true;
   orders:Order[];
 
-  constructor(private itemService:ItemsService,private modalService: NgbModal,private router:Router, private actRouter:ActivatedRoute) { }
+  constructor(private itemService:ItemsService,private modalService: NgbModal,private router:Router, private actRouter:ActivatedRoute,private adminService:AdminService) { }
 
   ngOnInit() {
-    // this.bucketSubscriptions = this.itemService.getBucketSubscription().subscribe((bucket:Bucket) => {
-    //   if(bucket.items.length > 0){
-    //     this.openModal();
-    //   }
-    // });
-    // this.itemService.notifyBucketSubscribers();
     this.actRouter.fragment.subscribe(res => {
-      if(res == 'makeOrder')this.openModal();
+      if (res == 'makeOrder') this.openModal();
     });
-    this.ordersSubscription = this.itemService.getOrders().subscribe((res:Order[]) => {
+
+    this.ordersSubscription = this.itemService.getOrders().subscribe((res: Order[]) => {
       this.orders = res;
     })
   }

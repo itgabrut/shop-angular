@@ -14,16 +14,21 @@ export class AdminService{
 
 
   constructor(private http:HttpClient) {
+    console.log('ADMINSERVICEEEEEEEEEEEEEEEEEEEEE')
   }
 
   getOrders():Observable<Order[]>{
     return <Observable<Order[]>>this.http.get(environment.url+environment.adminPrefix+environment.gates.order);
   }
 
+  getOrdersByClientId(id:number){
+    return <Observable<Order[]>>this.http.get(environment.url+environment.adminPrefix+environment.gates.order+'/'+id);
+  }
+
   getAllClients():Observable<User[]>{
-   return <Observable<User[]>>this.http.get(environment.url+environment.adminPrefix+environment.gates.clients).switchMap(res =>{
+   return <Observable<User[]>>this.http.get(environment.url+environment.adminPrefix+environment.gates.clients).switchMap((res:User[]) =>{
      res.forEach(user => {
-       user.birth = moment(user.birth,"DD-MM-YYYY").toDate();
+       user.birth = moment(user.birth,"YYYY-MM-DD").toDate();
      });
      return Observable.of(res);
    });
@@ -41,8 +46,9 @@ export class AdminService{
     this.http.put(environment.url+environment.adminPrefix+environment.gates.order,fromObject).subscribe(resp => console.log(resp))
   }
 
-  updateClient(evv){
-    console.log(evv);
+  updateClient(client:User){
+    console.log(client);
+   return this.http.post(environment.url +'/secure'+environment.gates.updateClients, client);
   }
 
 

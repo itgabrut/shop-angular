@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Order} from "../../objects/order";
 import {AdminService} from "../../services/adminService";
-import {Router} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-orders',
@@ -13,12 +13,20 @@ export class AdminOrdersComponent implements OnInit {
   orders:Order[] = [];
 
 
-  constructor(private service:AdminService,private router:Router) { }
+  constructor(private service:AdminService,private router:Router,private actRouter:ActivatedRoute) { }
 
   ngOnInit() {
-    this.service.getOrders().subscribe((orders:Order[])=>{
+
+
+    this.actRouter.paramMap.switchMap((params: ParamMap) => {
+      let clientId = params.get('clientId');
+      if (clientId) {
+        return this.service.getOrdersByClientId(Number(clientId));
+      }
+      else return this.service.getOrders();
+    }).subscribe((orders:Order[])=>{
       this.orders = orders;
-    })
+    });
   }
 
   columnDef = [

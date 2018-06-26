@@ -39,7 +39,7 @@ export class DatePicker implements ICellEditorAngularComp, AfterViewInit{
 
 
   getValue(): any {
-    return new Date(this.model.year,this.model.month - 1,this.model.day);
+    return new Date(Date.UTC(this.model.year,this.model.month - 1,this.model.day));
   }
 
   isPopup(): boolean {

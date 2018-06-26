@@ -50,23 +50,30 @@
         <h1>Furniture ++</h1>
         </a>
       </div>
-      <div class="col-8 float-right">
+      <div class="col-8 ">
+        <div class=" col-12 justify-content-end">
         <ng-container *ngIf="admin">
           <div class="ib">
-            <a routerLink="adminUsers"><h3>Users</h3></a>
+            <a routerLink="adminUsers"><h3>Users </h3></a>
+          </div>
+          <b>| </b>
+          <div class="ib">
+            <a routerLink="adminOrders"><h3>Orders Administration </h3></a>
+          </div>
+          <b>| </b>
+          <div class="ib">
+            <a routerLink="adminMod/listItems"><h3>Items list</h3></a>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!admin">
+          <div class="ib">
+            <a routerLink="myOrders"><h3>Orders List</h3></a>
           </div>
           |
           <div class="ib">
-            <a routerLink="adminOrders"><h3>Orders Administration</h3></a>
+            <a href="news"><h3>News</h3></a>
           </div>
-          |
         </ng-container>
-        <div class="ib">
-          <a routerLink="myOrders"><h3>Orders List</h3></a>
-        </div>
-        |
-        <div class="ib">
-          <a href="news"><h3>News</h3></a>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 <ag-grid-angular
+  [rowClass]="rowClass"
   #agGrid
   style="width: 100%; height:auto;"
   class="ag-theme-balham-dark"
@@ -15,8 +16,12 @@
   [columnTypes]="columnTypes"
   (gridReady)="onGridReady($event)"
   (rowClicked)="onRowSelected($event)"
+  (cellClicked)="onCellClicked($event)"
   [frameworkComponents]="getComponents()"
-  suppressCellSelection="true"
   [getRowNodeId]="grnId"
+  suppressCellSelection="true"
+
 >
 </ag-grid-angular>
+
+

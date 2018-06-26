@@ -11,6 +11,7 @@ import {OrderDetailsComponent} from "./pages/order-details/order-details.compone
 import {AdminOrdersComponent} from "./pages/admin-orders/admin-orders.component";
 import {AdminGuard} from "./guards/admin-guard";
 import {AdminUsersComponent} from "./pages/admin-users/admin-users.component";
+import {AdminModuleModule} from "./modules/admin-module/admin-module.module";
 
 
 const APP_ROUTES: Routes = [
@@ -23,14 +24,16 @@ const APP_ROUTES: Routes = [
   //     { path : ':id/edit', component : RecipeEditComponent}
   //   ]},
   // { path: '', redirectTo : '/recipe', pathMatch : 'full'},
-  { path: 'single' , component : SingleComponent},
-  { path: 'items' , component : ItemsComponent},
+  {path: 'single' , component : SingleComponent},
+  {path: 'items' , component : ItemsComponent},
   {path:'checkout',component: CheckoutComponent},
   {path:'myOrders',component: MyOrderComponent,canActivate: [LoginGuard]},
   {path:'myDetails', component:MyDetailsComponent, canActivate:[LoginGuard]},
   {path:'orderDetails/:id',component: OrderDetailsComponent, canActivate:[LoginGuard]},
   {path:'adminOrders', component: AdminOrdersComponent, canActivate:[LoginGuard,AdminGuard]},
   {path:'adminUsers',component: AdminUsersComponent, canActivate:[AdminGuard]},
+  {path:'adminMod', loadChildren: () => AdminModuleModule},
+  // {path:'adminMod', loadChildren:'./modules/admin-module/admin-module.module#AdminModuleModule'},
   { path: '', redirectTo:'items', pathMatch:'full'}
 ];
 

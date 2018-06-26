@@ -86,7 +86,7 @@ div.card-inline{
   max-width: 18rem;
 }
 
-.ag-row-hover{
+.ag-row-hover.hovered{
   background-color: #82f133 !important;
   cursor: pointer;
 }
@@ -94,6 +94,16 @@ div.card-inline{
 .ag-cell{
   overflow: visible!important;
 }
+
+.ag-row-hover.firstCell-hovered > div.ag-cell.ag-column-hover[col-id=id]{
+  background-color: #82f133 !important;
+  cursor: pointer;
+}
+
+/*.ag-row-hover.firstCell-hovered > div.ag-cell.ag-column-hover[col-id=id]::after{*/
+  /*content: '<p>AAAAAAAAAAAA</p>';*/
+/*}*/
+
 
 a.disabled {
   pointer-events: none;

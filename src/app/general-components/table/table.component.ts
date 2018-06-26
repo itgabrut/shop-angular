@@ -18,10 +18,12 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input()content;
   @Input()columnDef;
   @Output()rowChosen:EventEmitter<any> = new EventEmitter();
+  @Output()onCellClickedEm:EventEmitter<any> = new EventEmitter();
 
   api;
   getRowHeight;
   @Input()grnId:Function;
+  @Input()rowClass;
 
 
   // disable overflow scroll
@@ -44,7 +46,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   columnTypes = {
     dateColumn : {cellFormatter : function (date) {
       if (date.value instanceof Date)return moment(date.value.toISOString()).format('DD/MM/YYYY');
-      else return moment(date.value,"DD-MM-YYYY").format('DD/MM/YYYY');
+      else return moment(date.value,"YYYY-MM-DD").format('DD/MM/YYYY');
 
     }}
   };
@@ -93,6 +95,9 @@ export class TableComponent implements OnInit, AfterViewInit {
     // event.node.setRowHeight(120);
     // this.api.resetRowHeights();
   }
+  onCellClicked(event){
+    this.onCellClickedEm.emit(event);
+    }
 
   private randomDate(date:Date,date2:Date):Date{
     return new Date(date.getTime() + Math.random() * (date2.getTime() - date.getTime()))

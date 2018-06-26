@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../../objects/user";
 import {AdminService} from "../../services/adminService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-users',
@@ -12,7 +13,7 @@ export class AdminUsersComponent implements OnInit {
   clients:User[];
 
   columnDef = [
-    {headerName: 'Client Id', field:'id'},
+    {headerName: 'Client Id', field:'id',selectable:false},
     {headerName: 'Name', field:'name', editable: true},
     {headerName: 'Surname', field:'surname', editable: true},
     {headerName: 'Birthday', field:'birth',type:"dateColumn", editable: true, cellEditor: "datepicker"},
@@ -24,7 +25,7 @@ export class AdminUsersComponent implements OnInit {
     {headerName: 'Save', cellRenderer: 'clientBtn'}
   ];
 
-  constructor(private service:AdminService) { }
+  constructor(private service:AdminService, private router:Router) { }
 
   ngOnInit() {
     this.service.getAllClients().subscribe((clients:User[]) => {
@@ -49,6 +50,13 @@ export class AdminUsersComponent implements OnInit {
     }
   }
 
+  onCellClicked(event){
+    console.log(event);
+    if(event.column.colId == 'id' || event.column.colId == 'Id'){
+      this.router.navigate(['/adminOrders',{clientId : event.data.id}]);
+    }
+  }
+
   static validateEmail(email):boolean {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
@@ -58,5 +66,9 @@ export class AdminUsersComponent implements OnInit {
     let patt = /^[0-9]{6}$/;
     return patt.test(String(zip));
   }
+
+  // rowChosen(id){
+  //   this.router.navigate(['/myOrders',{clientId : id}]);
+  // }
 
 }

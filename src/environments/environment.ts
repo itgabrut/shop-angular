@@ -14,6 +14,7 @@ export const environment = {
     item:'/item',
     bucket:'/getBucketList',
     order:'/order',
-    clients:'/users'
+    clients:'/users',
+    updateClients:'/users/updateClient'
   }
 };

@@ -13,7 +13,7 @@ export class ScrollD {
 
   @HostListener('window:scroll',['$event']) onScroll($event) {
     console.log($event);
-    if(document.documentElement.scrollTop > 200){
+    if(document.documentElement.scrollTop > 250){
       // this.renderer.removeClass(this.el.nativeElement,'sideCard');
       // this.renderer.addClass(this.el.nativeElement,'sideCardFixed');
       this.sideCardFixed = true;
