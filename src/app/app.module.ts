@@ -39,6 +39,7 @@ import {OrderUpdateButton} from "./general-components/bootstrap/order-update-but
 import {AdminUsersComponent} from "./pages/admin-users/admin-users.component";
 import {DatePicker} from "./general-components/bootstrap/datepicker";
 import {ClientUpdateButton} from "./general-components/bootstrap/client-update-button";
+import {SharedModuleModule} from "./modules/shared-module/shared-module.module";
 
 
 @NgModule({
@@ -56,26 +57,22 @@ import {ClientUpdateButton} from "./general-components/bootstrap/client-update-b
     LoginComponent,
     MyOrderComponent,
     MyDetailsComponent,
-    TableComponent,
     OrderDetailsComponent,
     AdminOrdersComponent,
     AdminUsersComponent,
-    Dropdown,
-    OrderUpdateButton,
-    ClientUpdateButton,
-    DatePicker
+
   ],
   entryComponents: [
     OrderUpdateButton
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     NgbModule.forRoot(),
     TreeModule,
     HttpClientModule,
     AppRouterModule,
-    FormsModule,
-    AgGridModule.withComponents([Dropdown, DatePicker,ClientUpdateButton])
+    SharedModuleModule
   ],
   providers: [ItemsService,
     CacheService,
