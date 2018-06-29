@@ -91,9 +91,9 @@ div.card-inline{
   cursor: pointer;
 }
 
-.ag-cell{
-  overflow: visible!important;
-}
+/*.ag-cell{*/
+  /*overflow: visible!important;*/
+/*}*/
 
 .ag-row-hover.firstCell-hovered > div.ag-cell.ag-column-hover[col-id=id]{
   background-color: #82f133 !important;
@@ -113,4 +113,10 @@ a.disabled {
 .dropdown-menu.show{
   position: static!important;
   overflow: visible;
+}
+
+@media (max-width: 1100px) {
+  div.detailsHolder{
+    width: 100%;
+  }
 }

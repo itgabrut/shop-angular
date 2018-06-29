@@ -39,7 +39,8 @@ import {OrderUpdateButton} from "./general-components/bootstrap/order-update-but
 import {AdminUsersComponent} from "./pages/admin-users/admin-users.component";
 import {DatePicker} from "./general-components/bootstrap/datepicker";
 import {ClientUpdateButton} from "./general-components/bootstrap/client-update-button";
-import {SharedModuleModule} from "./modules/shared-module/shared-module.module";
+import {SharedModule} from "./modules/shared-module/shared-module.module";
+import {ExistingEmailValidatorDirective} from "./directives/email-validation-directive";
 
 
 @NgModule({
@@ -60,7 +61,7 @@ import {SharedModuleModule} from "./modules/shared-module/shared-module.module";
     OrderDetailsComponent,
     AdminOrdersComponent,
     AdminUsersComponent,
-
+    ExistingEmailValidatorDirective
   ],
   entryComponents: [
     OrderUpdateButton
@@ -72,9 +73,10 @@ import {SharedModuleModule} from "./modules/shared-module/shared-module.module";
     TreeModule,
     HttpClientModule,
     AppRouterModule,
-    SharedModuleModule
+    SharedModule
   ],
-  providers: [ItemsService,
+  providers: [
+    ItemsService,
     CacheService,
     {
       provide: RouteReuseStrategy,

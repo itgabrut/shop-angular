@@ -6,6 +6,8 @@ import {Dropdown} from "../bootstrap/dropdown-comp";
 import {OrderUpdateButton} from "../bootstrap/order-update-button";
 import {DatePicker} from "../bootstrap/datepicker";
 import {ClientUpdateButton} from "../bootstrap/client-update-button";
+import {ItemsEditButton} from "../bootstrap/item-edit-button";
+import {ItemsRemoveButton} from "../bootstrap/item-remove-button";
 
   @Component({
     selector: 'app-table',
@@ -39,7 +41,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   ];
 
   defColumnDef = {
-    cellStyle: { "white-space": "normal" },
+    cellStyle: { "white-space": "normal",'overflow': 'visible !important' },
     autoHeight:true
   };
 
@@ -81,7 +83,9 @@ export class TableComponent implements OnInit, AfterViewInit {
       'drp': Dropdown,
       'orderBtn': OrderUpdateButton,
       'clientBtn':ClientUpdateButton,
-      'datepicker': DatePicker
+      'datepicker': DatePicker,
+      'editButton': ItemsEditButton,
+      'removeButton': ItemsRemoveButton
     }
   }
 

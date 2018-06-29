@@ -12,9 +12,11 @@ export const environment = {
     items:'/items',
     photo:'/fotos/list',
     item:'/item',
+    allItems:'/allItems',
     bucket:'/getBucketList',
     order:'/order',
     clients:'/users',
-    updateClients:'/users/updateClient'
+    updateClients:'/users/updateClient',
+    checkMailExist:'/users/checkMail'
   }
 };

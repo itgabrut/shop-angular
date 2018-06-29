@@ -58,12 +58,12 @@ export class TreeElComponent implements OnInit {
   };
 
   constructor(private itemsService: ItemsService) {
-    // this.nodes = Array.apply(null,Array(10)).map( (el,ind) => {
+    // this.nodes = Array.apply(null,Array(10)).map( (form,ind) => {
     //   return new Node(this.id,'popa'+this.id++);
     // });
     //
     // for(let i=0;i<8;i++){
-    //   let helper = Array.apply(null,Array(10)).map( (el,ind) => {
+    //   let helper = Array.apply(null,Array(10)).map( (form,ind) => {
     //     return new Node(this.id,'popa'+this.id++);
     //   });
     //     this.fillArray(helper,this.nodes,2);

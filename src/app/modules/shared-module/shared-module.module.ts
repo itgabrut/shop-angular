@@ -9,27 +9,34 @@ import {AgGridModule} from "ag-grid-angular";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
+import {ItemsEditButton} from "../../general-components/bootstrap/item-edit-button";
+import {ItemsRemoveButton} from "../../general-components/bootstrap/item-remove-button";
 
 @NgModule({
   imports: [
-    AgGridModule.withComponents([Dropdown, DatePicker,ClientUpdateButton,OrderUpdateButton]),
+    AgGridModule.withComponents([Dropdown, DatePicker,ClientUpdateButton,OrderUpdateButton, ItemsRemoveButton,
+      ItemsEditButton]),
     NgbModule.forRoot(),
     FormsModule,
-    BrowserModule
+    CommonModule
   ],
   declarations: [
     Dropdown,
     OrderUpdateButton,
     ClientUpdateButton,
     DatePicker,
-    TableComponent
+    TableComponent,
+    ItemsRemoveButton,
+    ItemsEditButton
   ],
   exports: [
     Dropdown,
     OrderUpdateButton,
     ClientUpdateButton,
     DatePicker,
-    TableComponent
+    TableComponent,
+    ItemsRemoveButton,
+    ItemsEditButton
   ]
 })
-export class SharedModuleModule { }
+export class SharedModule { }

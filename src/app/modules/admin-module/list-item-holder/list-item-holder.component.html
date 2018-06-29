@@ -1,0 +1,8 @@
+<br>
+<br>
+<div class="container-fluid">
+  <div class="row">
+  <app-list-items [class]="useClass"></app-list-items>
+  <router-outlet name="details" (activate)="detailsActivated($event)" (deactivate)="detailsDeactivated($event)"></router-outlet>
+  </div>
+</div>

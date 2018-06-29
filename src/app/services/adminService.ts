@@ -6,6 +6,7 @@ import {environment} from "../../environments/environment";
 import {HttpParamsOptions} from "@angular/common/http/src/params";
 import {User} from "../objects/user";
 import moment = require("moment");
+import {Item} from "../objects/item";
 /**
  * Created by ilya on 17.06.2018.
  */
@@ -49,6 +50,11 @@ export class AdminService{
   updateClient(client:User){
     console.log(client);
    return this.http.post(environment.url +'/secure'+environment.gates.updateClients, client);
+  }
+
+
+  getAllItems():Observable<Item[]>{
+    return <Observable<Item[]>>this.http.get(environment.url+environment.adminPrefix+environment.gates.allItems)
   }
 
 

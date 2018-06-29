@@ -11,7 +11,7 @@ import {OrderDetailsComponent} from "./pages/order-details/order-details.compone
 import {AdminOrdersComponent} from "./pages/admin-orders/admin-orders.component";
 import {AdminGuard} from "./guards/admin-guard";
 import {AdminUsersComponent} from "./pages/admin-users/admin-users.component";
-import {AdminModuleModule} from "./modules/admin-module/admin-module.module";
+import {AdminModule} from "./modules/admin-module/admin-module.module";
 
 
 const APP_ROUTES: Routes = [
@@ -32,8 +32,8 @@ const APP_ROUTES: Routes = [
   {path:'orderDetails/:id',component: OrderDetailsComponent, canActivate:[LoginGuard]},
   {path:'adminOrders', component: AdminOrdersComponent, canActivate:[LoginGuard,AdminGuard]},
   {path:'adminUsers',component: AdminUsersComponent, canActivate:[AdminGuard]},
-  {path:'adminMod', loadChildren: () => AdminModuleModule},
-  // {path:'adminMod', loadChildren:'./modules/admin-module/admin-module.module#AdminModuleModule'},
+  {path:'adminMod', loadChildren: () => AdminModule},
+  // {path:'adminMod', loadChildren:'./modules/admin-module/admin-module.module#AdminModule'},
   { path: '', redirectTo:'items', pathMatch:'full'}
 ];
 
