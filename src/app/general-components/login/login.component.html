@@ -13,7 +13,7 @@
     <a *ngIf="login" href="#" (click)="toggleLogin()"><h2>Or register new User&hellip;</h2></a>
       <a *ngIf="!login" href="#" (click)="toggleLogin()"><h2>Or Login with existing&hellip;</h2></a>
     </div>
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" (change)="setForm(form)">
       <ng-container *ngTemplateOutlet="login ? loginTempl :registerTempl">
       </ng-container>
 
@@ -26,8 +26,8 @@
             <label for="username" class="col-9 col-sm-3 col-form-label">Email</label>
             <div class="col-9">
               <input #username ="ngModel" [(ngModel)]="emailForLogin" class="form-control" id="username" type="email" email required name="username">
-              <div *ngIf="username.errors && username.dirty" class="alert alert-danger">
-                <div [hidden]="username.valid || !username.dirty ">
+              <div *ngIf="username.errors && form.submitted" class="alert alert-danger">
+                <div [hidden]="username.valid || !username.dirty || username.errors.invalid ">
                   Email invalid
                 </div>
                 <div [hidden]="!username.errors.invalid">
@@ -40,13 +40,13 @@
             <label for="password" class="col-9 col-sm-3 col-form-label">Password</label>
             <div class="col-9">
               <input #pass="ngModel" ngModel class="form-control" required id="password" type="password" name="password">
-              <div [hidden]="pass.valid || pass.pristine" class="alert alert-danger">
+              <div [hidden]="pass.valid || !form.submitted" class="alert alert-danger">
                 Password required
               </div>
             </div>
           </div>
           <div class="form-group row justify-content-end" style="padding-right: 15px;">
-            <button type="submit" [disabled]="!form.valid" class="btn btn-success">Login</button>
+            <button type="submit"  class="btn btn-success">Login</button>
           </div>
         </div>
       </ng-template>
@@ -58,19 +58,33 @@
         <div class="col-9 offset-1">
           <div class="form-group row">
             <label for="username1" class="col-9 col-sm-3 col-form-label">Name</label>
-            <div class="col-9"><input class="form-control" pattern="[a-zA-Z ]*" id="username1" type="text" name="name" [(ngModel)]="user.name"></div>
+            <div class="col-9"><input class="form-control" pattern="[a-zA-Z ]*" id="username1" type="text" #name="ngModel" required name="name" [(ngModel)]="user.name">
+            <div [hidden]="name.valid || !form.submitted" class="alert alert-danger">
+              Name required
+            </div>
+            </div>
           </div>
           <div class="form-group row">
             <label for="email" class="col-9 col-sm-3 col-form-label">Email</label>
-            <div class="col-9"><input class="form-control" id="email" type="email" #email="ngModel" name="email" email [(ngModel)]="user.email">
-            <div [hidden]="email.valid || !email.dirty" class="alert alert-danger">
-              Email invalid
-            </div>
+            <div class="col-9"><input class="form-control" id="email" type="email" #email="ngModel" ngControl="email" name="email" email
+                                      [(ngModel)]="user.email" emailExists required [ngModelOptions]="{updateOn: 'submit'}">
+              <div *ngIf="email.errors && form.submitted" class="alert alert-danger">
+                <div [hidden]="email.valid || email.errors.emailExists">
+                  Email invalid
+                </div>
+                <div [hidden]="!email.errors.emailExists || !email.dirty">
+                  Email already exists
+                </div>
+              </div>
             </div>
           </div>
           <div class="form-group row">
             <label for="surname" class="col-9 col-sm-3 col-form-label">Surname</label>
-            <div class="col-9"><input class="form-control"  pattern="[a-zA-Z ]*" id="surname" type="text" name="surname" [(ngModel)]="user.surname"></div>
+            <div class="col-9"><input class="form-control"  pattern="[a-zA-Z ]*" id="surname" type="text" #surname="ngModel" required name="surname" [(ngModel)]="user.surname">
+            <div [hidden]="surname.valid || !form.submitted" class="alert alert-danger">
+              Surname required
+            </div>
+            </div>
           </div>
           <div class="form-group row">
             <label for="birth" class="col-9 col-sm-3 col-form-label">Birth</label>
@@ -79,7 +93,7 @@
           <div class="form-group row">
             <label for="country" class="col-9 col-sm-3 col-form-label">Country</label>
             <div class="col-9"><input class="form-control" id="country" type="text" name="country" #country="ngModel" required [(ngModel)]="user.address.country">
-              <div [hidden]="country.valid || country.pristine" class="alert alert-danger">
+              <div [hidden]="country.valid || !form.submitted" class="alert alert-danger">
                 Country required
               </div>
             </div>
@@ -87,7 +101,7 @@
           <div class="form-group row">
             <label for="city" class="col-9 col-sm-3 col-form-label">City</label>
             <div class="col-9"><input class="form-control" id="city" type="text" #city="ngModel" required name="city" [(ngModel)]="user.address.city">
-              <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
+              <div [hidden]="city.valid || !form.submitted" class="alert alert-danger">
                 City required
               </div>
             </div>
@@ -95,7 +109,7 @@
           <div class="form-group row">
             <label for="zip" class="col-9 col-sm-3 col-form-label">Zip</label>
             <div class="col-9"><input class="form-control" pattern="\d{6}" id="zip" #zip="ngModel" type="number" name="zip" [(ngModel)]="user.address.zip">
-              <div [hidden]="zip.valid || !zip.dirty" class="alert alert-danger">
+              <div [hidden]="zip.valid || !form.submitted" class="alert alert-danger">
                 Zip code consists 6 numbers
               </div>
             </div>
@@ -103,7 +117,7 @@
           <div class="form-group row">
             <label for="street" class="col-9 col-sm-3 col-form-label">Street</label>
             <div class="col-9"><input class="form-control" id="street" #street="ngModel" type="text" required name="street" [(ngModel)]="user.address.street">
-              <div [hidden]="street.valid || street.pristine" class="alert alert-danger">
+              <div [hidden]="street.valid || !form.submitted" class="alert alert-danger">
                 Street required
               </div>
             </div>
@@ -115,13 +129,13 @@
           <div class="form-group row">
             <label for="password1" class="col-9 col-sm-3 col-form-label">Password</label>
             <div class="col-9"><input class="form-control" #password="ngModel" id="password1" type="password" required name="password" [(ngModel)]="user.password">
-              <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+              <div [hidden]="password.valid || !form.submitted" class="alert alert-danger">
                 Password required
               </div>
             </div>
           </div>
           <div class="form-group row justify-content-end" style="padding-right: 15px;">
-            <button type="submit" [disabled]="!form.valid" class="btn btn-success col-4" style="margin-right: 1rem">Register</button>
+            <button type="submit" class="btn btn-success col-4" style="margin-right: 1rem">Register</button>
             <button type="button" class="btn btn-danger" (click)="clearForm()">Clear</button>
           </div>
         </div>

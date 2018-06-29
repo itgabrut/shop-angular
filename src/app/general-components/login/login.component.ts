@@ -1,17 +1,22 @@
 
-import {AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AfterContentInit, AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output,
+  ViewChild
+} from '@angular/core';
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {FormGroup, NgForm} from "@angular/forms";
+import {FormGroup, NgForm, NgModel} from "@angular/forms";
 import {LoginService} from "../../services/login-service";
 import {User} from "../../objects/user";
 import {Subscription} from "rxjs/Subscription";
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy,AfterViewInit {
+export class LoginComponent implements OnInit, OnDestroy,AfterViewInit,AfterContentInit {
+
   closeResult: string;
   login:boolean = true;
 
@@ -21,8 +26,12 @@ export class LoginComponent implements OnInit, OnDestroy,AfterViewInit {
   modalRef:NgbModalRef;
   loginSuccessSubscr:Subscription;
 
+
+
   @ViewChild('content') content:ElementRef;
-  @ViewChild(NgForm) el:NgForm;
+  //doesnt see
+  @ViewChild('form') form:any;
+  changeSubscr:Subscription;
 
 
   constructor(private modalService: NgbModal, private loginService:LoginService) { }
@@ -33,6 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy,AfterViewInit {
 
 
   ngAfterViewInit(): void {
+
     this.loginSuccessSubscr = this.loginService.loginSuccessSubj.subscribe(res => {
       if(res){
         this.modalRef.close("login successful");
@@ -40,9 +50,12 @@ export class LoginComponent implements OnInit, OnDestroy,AfterViewInit {
         this.emailForLogin = '';
       }
       else {
-        this.el.controls['username'].setErrors({invalid:true})
+        this.form.controls['username'].setErrors({invalid:true})
       }
     });
+  }
+
+  ngAfterContentInit(): void {
   }
 
   open() {
@@ -62,22 +75,44 @@ export class LoginComponent implements OnInit, OnDestroy,AfterViewInit {
   }
 
   onSubmit(form:NgForm){
-   this.el = form;
-    console.log(form);
+   this.form = form;
     console.log(form.value);
-    if(this.login) this.loginService.tryLogin(form.value.username,form.value.password);
+    if(form.status == 'INVALID')return;
+    if(form.status == 'PENDING'){
+      if(this.changeSubscr)return;
+      else {
+        this.changeSubscr = this.form.statusChanges.subscribe(res =>{
+          console.log(res);
+          if(res == 'VALID' && form.submitted){
+            this.makeSubmit();
+          }
+        });
+      }
+    }
+    else this.makeSubmit();
+  }
+
+  makeSubmit(){
+    if(this.login) this.loginService.tryLogin(this.form.value.username,this.form.value.password);
     else {
       this.loginService.registerNewUser(this.user)
         .subscribe((res:User) => {
-        console.log(res);
-        if(res)this.toggleLogin();
-        this.emailForLogin = res.email;
-      });
+          console.log(res);
+          if(res){
+            this.toggleLogin();
+            if(this.changeSubscr)this.changeSubscr.unsubscribe();
+          }
+          this.emailForLogin = res.email;
+        });
     }
   }
 
   clearForm(){
     this.user = new User();
+  }
+
+  setForm(form){
+    this.form = form;
   }
 
 

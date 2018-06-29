@@ -121,4 +121,9 @@ export class LoginService {
   }
 
 
+  getUserByEmail(email):Observable<any>{
+    return this.http.get(environment.url+environment.gates.checkMailExist,{headers : new HttpHeaders().set('email',email)})
+  }
+
+
 }
