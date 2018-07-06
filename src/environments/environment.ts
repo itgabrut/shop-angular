@@ -17,6 +17,8 @@ export const environment = {
     order:'/order',
     clients:'/users',
     updateClients:'/users/updateClient',
-    checkMailExist:'/users/checkMail'
+    checkMailExist:'/users/checkMail',
+    removeItem:'/removeItem',
+    activIt:'/activateItem'
   }
 };

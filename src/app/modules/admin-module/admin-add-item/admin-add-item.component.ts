@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AdminService} from "../../services/adminService";
+import {AdminService} from "../../../services/adminService";
 
 @Component({
   selector: 'app-admin-add-item',
@@ -30,6 +30,12 @@ export class AdminAddItemComponent implements OnInit {
 
   onFile(ev){
       if(ev.target.files){
+        if(ev.target.files.length == 0){
+          this.form.patchValue({
+            foto : ''
+          });
+          return;
+        }
         const fileInput = ev.target.files[0];
         const reader = new FileReader();
         reader.readAsDataURL(fileInput);
@@ -64,11 +70,11 @@ export class AdminAddItemComponent implements OnInit {
     }
   }
 
-  get name() {
+  get name(){
     return this.form.controls['name'];
   }
 
-  get theme() {
+  get theme(){
     return this.form.controls['theme'];
   }
 

@@ -11,11 +11,12 @@ import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {ItemsEditButton} from "../../general-components/bootstrap/item-edit-button";
 import {ItemsRemoveButton} from "../../general-components/bootstrap/item-remove-button";
+import {CheckBoxComponent} from "../../general-components/bootstrap/checkbox-component";
 
 @NgModule({
   imports: [
     AgGridModule.withComponents([Dropdown, DatePicker,ClientUpdateButton,OrderUpdateButton, ItemsRemoveButton,
-      ItemsEditButton]),
+      ItemsEditButton,CheckBoxComponent]),
     NgbModule.forRoot(),
     FormsModule,
     CommonModule
@@ -27,7 +28,8 @@ import {ItemsRemoveButton} from "../../general-components/bootstrap/item-remove-
     DatePicker,
     TableComponent,
     ItemsRemoveButton,
-    ItemsEditButton
+    ItemsEditButton,
+    CheckBoxComponent
   ],
   exports: [
     Dropdown,
@@ -36,7 +38,8 @@ import {ItemsRemoveButton} from "../../general-components/bootstrap/item-remove-
     DatePicker,
     TableComponent,
     ItemsRemoveButton,
-    ItemsEditButton
+    ItemsEditButton,
+    CheckBoxComponent
   ]
 })
 export class SharedModule { }

@@ -8,6 +8,7 @@ import {DatePicker} from "../bootstrap/datepicker";
 import {ClientUpdateButton} from "../bootstrap/client-update-button";
 import {ItemsEditButton} from "../bootstrap/item-edit-button";
 import {ItemsRemoveButton} from "../bootstrap/item-remove-button";
+import {CheckBoxComponent} from "../bootstrap/checkbox-component";
 
   @Component({
     selector: 'app-table',
@@ -85,7 +86,8 @@ export class TableComponent implements OnInit, AfterViewInit {
       'clientBtn':ClientUpdateButton,
       'datepicker': DatePicker,
       'editButton': ItemsEditButton,
-      'removeButton': ItemsRemoveButton
+      'removeButton': ItemsRemoveButton,
+      'checkBox': CheckBoxComponent
     }
   }
 

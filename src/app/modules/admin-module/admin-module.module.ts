@@ -8,7 +8,7 @@ import {ItemsRemoveButton} from "../../general-components/bootstrap/item-remove-
 import { ListItemDetailComponent } from './list-item-detail/list-item-detail.component';
 import { ListItemHolderComponent } from './list-item-holder/list-item-holder.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {AdminAddItemComponent} from "../../pages/admin-add-item/admin-add-item.component";
+import {AdminAddItemComponent} from "./admin-add-item/admin-add-item.component";
 
 @NgModule({
   imports: [

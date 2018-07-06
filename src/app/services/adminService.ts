@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Order} from "../objects/order";
 import {environment} from "../../environments/environment";
@@ -7,6 +7,7 @@ import {HttpParamsOptions} from "@angular/common/http/src/params";
 import {User} from "../objects/user";
 import moment = require("moment");
 import {Item} from "../objects/item";
+import {Subject} from "rxjs/Subject";
 /**
  * Created by ilya on 17.06.2018.
  */
@@ -17,6 +18,9 @@ export class AdminService{
   constructor(private http:HttpClient) {
     console.log('ADMINSERVICEEEEEEEEEEEEEEEEEEEEE')
   }
+
+  modalEnsureSubject:Subject<any> = new Subject();
+  itemsSubject:Subject<Item[]> = new Subject();
 
   getOrders():Observable<Order[]>{
     return <Observable<Order[]>>this.http.get(environment.url+environment.adminPrefix+environment.gates.order);
@@ -57,8 +61,24 @@ export class AdminService{
     return <Observable<Item[]>>this.http.get(environment.url+environment.adminPrefix+environment.gates.allItems)
   }
 
+  getAllItemsObserve():Observable<Item[]>{
+    this.getAllItems().subscribe((res:Item[])=>{
+      this.itemsSubject.next(res);
+    });
+    return this.itemsSubject;
+  }
+
   postNewItem(formData):Observable<any>{
     return this.http.post(environment.url+environment.adminPrefix+'/postItem',formData)
+  }
+
+  deleteItem(id){
+
+    return this.http.post(environment.url+environment.adminPrefix+environment.gates.removeItem,
+      new HttpParams().set('id',id),
+      {
+      headers: new HttpHeaders().set("Content-type", 'application/x-www-form-urlencoded')
+    })
   }
 
 

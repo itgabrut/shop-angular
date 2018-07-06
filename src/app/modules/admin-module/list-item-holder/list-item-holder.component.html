@@ -6,3 +6,22 @@
   <router-outlet name="details" (activate)="detailsActivated($event)" (deactivate)="detailsDeactivated($event)"></router-outlet>
   </div>
 </div>
+
+
+
+<ng-template #deleteEnsure let-c="close" let-d="dismiss">
+  <div class="white deleteEnsure">
+    <div class="modal-body">
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h2>Are you sure to delete this Item ?</h2>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" (click)="deleteItem()">Delete Item</button>
+      <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+    </div>
+
+  </div>
+</ng-template>

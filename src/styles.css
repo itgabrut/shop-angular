@@ -91,6 +91,10 @@ div.card-inline{
   cursor: pointer;
 }
 
+.ag-checkbox{
+  margin-top: 1.5rem;
+}
+
 /*.ag-cell{*/
   /*overflow: visible!important;*/
 /*}*/

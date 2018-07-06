@@ -4,13 +4,13 @@
 export class  Item {
 
   id:number;
-  version;
   price:number;
   theme;
   theme2;
   quantity;
   description;
   bucketQuant:number = 1;
+  active:boolean;
 
   equals(item:Item):boolean{
     return this.id === item.id;
