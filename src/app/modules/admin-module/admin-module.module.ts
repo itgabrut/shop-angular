@@ -7,17 +7,22 @@ import {ItemsEditButton} from "../../general-components/bootstrap/item-edit-butt
 import {ItemsRemoveButton} from "../../general-components/bootstrap/item-remove-button";
 import { ListItemDetailComponent } from './list-item-detail/list-item-detail.component';
 import { ListItemHolderComponent } from './list-item-holder/list-item-holder.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {AdminAddItemComponent} from "../../pages/admin-add-item/admin-add-item.component";
 
 @NgModule({
   imports: [
     SharedModule,
     AdminRouterModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     ListItemsComponent,
     ListItemDetailComponent,
-    ListItemHolderComponent
+    ListItemHolderComponent,
+    AdminAddItemComponent
   ]
 })
 export class AdminModule { }

@@ -1,0 +1,64 @@
+<br>
+<br>
+<div class="container">
+  <div class="white">
+  <div class="col-sm-9 offset-1">
+    <form [formGroup]="form" (submit)="onSubmitAddItem()">
+      <div class="form-group row">
+        <label for="name" class="col-9 col-sm-3 col-form-label">Name</label>
+        <div class="col-9">
+          <input class="form-control" id="name" type="text" formControlName="name">
+          <div *ngIf="name.invalid && name.dirty">
+            <div *ngIf="name.errors.required" class="alert alert-danger">
+              Name is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="theme" class="col-9 col-sm-3 col-form-label">Catalog path</label>
+        <div class="col-9">
+          <input class="form-control" id="theme" type="text" formControlName="theme">
+          <div *ngIf="theme.invalid && theme.dirty">
+            <div *ngIf="theme.errors.required" class="alert alert-danger">
+              Catalog path is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="theme2" class="col-9 col-sm-3 col-form-label">Catalog path (eng)</label>
+        <div class="col-9"><input class="form-control" id="theme2" type="text" formControlName="theme2"></div>
+      </div>
+      <div class="form-group row">
+        <label for="price" class="col-9 col-sm-3 col-form-label">Price</label>
+        <div class="col-9">
+          <input class="form-control" id="price" type="number" min="0" formControlName="price">
+          <div *ngIf="price.invalid && price.dirty">
+            <div *ngIf="price.errors.required" class="alert alert-danger">
+              Price is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="description" class="col-9 col-sm-3 col-form-label">Description</label>
+        <div class="col-9"><textarea class="form-control" id="description" formControlName="description"></textarea></div>
+      </div>
+      <div class="form-group row">
+        <label for="photo" class="col-9 col-sm-3 col-form-label">Main image</label>
+        <div class="col-9">
+          <input class="form-control-file" id="photo" type="file" #fileInpt (change)="onFile($event)">
+          <div *ngIf="foto.invalid && foto.dirty">
+            <div *ngIf="foto.errors.required" class="alert alert-danger">
+              Image is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <button type="submit" class="btn btn-primary">Add Item</button>
+    </form>
+  </div>
+  </div>
+</div>

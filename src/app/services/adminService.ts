@@ -57,5 +57,9 @@ export class AdminService{
     return <Observable<Item[]>>this.http.get(environment.url+environment.adminPrefix+environment.gates.allItems)
   }
 
+  postNewItem(formData):Observable<any>{
+    return this.http.post(environment.url+environment.adminPrefix+'/postItem',formData)
+  }
+
 
 }
