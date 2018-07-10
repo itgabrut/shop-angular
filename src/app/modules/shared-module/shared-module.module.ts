@@ -12,6 +12,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {ItemsEditButton} from "../../general-components/bootstrap/item-edit-button";
 import {ItemsRemoveButton} from "../../general-components/bootstrap/item-remove-button";
 import {CheckBoxComponent} from "../../general-components/bootstrap/checkbox-component";
+import {SliderComponent} from "../../general-components/slider/slider.component";
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {CheckBoxComponent} from "../../general-components/bootstrap/checkbox-com
     TableComponent,
     ItemsRemoveButton,
     ItemsEditButton,
-    CheckBoxComponent
+    CheckBoxComponent,
+    SliderComponent
   ],
   exports: [
     Dropdown,
@@ -39,7 +41,8 @@ import {CheckBoxComponent} from "../../general-components/bootstrap/checkbox-com
     TableComponent,
     ItemsRemoveButton,
     ItemsEditButton,
-    CheckBoxComponent
+    CheckBoxComponent,
+    SliderComponent
   ]
 })
 export class SharedModule { }

@@ -2,38 +2,7 @@
   <div class="white">
     <div class="row">
       <div class="col-6">
-        <div *ngFor="let img of slides;let i = index" [hidden]="img.hidden" class="mySlides">
-          <div class="numbertext">{{i+1}} / {{slides.length}}</div>
-          <img *ngIf="i==0" [src]="img.src" style="width:100%" class="img-responsive fixed">
-          <img *ngIf="i!==0" [src]="'http://localhost:8080/fotos?path='+img.src" style="width:100%"
-               class="img-responsive fixed">
-        </div>
-
-        <!-- Next and previous buttons -->
-        <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
-        <a class="next" (click)="plusSlides(1)">&#10095;</a>
-
-        <!-- Image text -->
-        <div class="caption-container">
-          <p id="caption">asdadasdasdasdasdasdasd</p>
-        </div>
-
-        <!-- Thumbnail images -->
-        <div class="row">
-          <div style="margin-left: 4%">
-            <div *ngFor="let img of slides;let i = index" class="column">
-              <img *ngIf="i==0" class="demo cursor" [src]="img.src" style="width: 100%" (click)="currentSlide(i)">
-              <img *ngIf="i!=0" class="demo cursor" [src]="'http://localhost:8080/fotos?path='+img.src"
-                   style="width:100%" (click)="currentSlide(i)" alt="The Woods">
-            </div>
-            <!--<div class="column">-->
-            <!--<img class="demo cursor" src="https://images.pexels.com/photos/236047/pexels-photo-236047.jpeg?auto=compress&cs=tinysrgb&h=350" style="width:100%" (click)="currentSlide(1)" alt="Nature and sunrise">-->
-            <!--</div>-->
-            <!--<div class="column">-->
-            <!--<img class="demo cursor" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwDyYzbW1K4d79neRIvOsKI5VT88ogS1xxgOxDzS53HkbPYEI6" style="width:100%" (click)="currentSlide(2)" alt="Snowy Mountains">-->
-            <!--</div>-->
-          </div>
-        </div>
+        <app-slider [item]="item" [slideMargin]="true"></app-slider>
       </div>
       <div class="col-5 offset-1">
         <div class="cont1 span_2_of_a1 simpleCart_shelfItem">

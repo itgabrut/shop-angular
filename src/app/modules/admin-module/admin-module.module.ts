@@ -9,6 +9,7 @@ import { ListItemDetailComponent } from './list-item-detail/list-item-detail.com
 import { ListItemHolderComponent } from './list-item-holder/list-item-holder.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AdminAddItemComponent} from "./admin-add-item/admin-add-item.component";
+import { AdminEditItemComponent } from './admin-edit-item/admin-edit-item.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {AdminAddItemComponent} from "./admin-add-item/admin-add-item.component";
     ListItemsComponent,
     ListItemDetailComponent,
     ListItemHolderComponent,
-    AdminAddItemComponent
+    AdminAddItemComponent,
+    AdminEditItemComponent
   ]
 })
 export class AdminModule { }

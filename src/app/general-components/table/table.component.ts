@@ -20,6 +20,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   @ViewChild('agGrid') aggr:AgGridNg2;
   @Input()content;
   @Input()columnDef;
+  @Input()rowSelection = "none";
   @Output()rowChosen:EventEmitter<any> = new EventEmitter();
   @Output()onCellClickedEm:EventEmitter<any> = new EventEmitter();
 
@@ -96,7 +97,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.api.sizeColumnsToFit();
     apiEvent.columnApi.autoSizeColumns();
   }
-  onRowSelected(event){
+  onRowClicked(event){
     this.rowChosen.emit(event.node.data.id);
     // event.node.setRowHeight(120);
     // this.api.resetRowHeights();

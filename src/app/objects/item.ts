@@ -4,6 +4,7 @@
 export class  Item {
 
   id:number;
+  name;
   price:number;
   theme;
   theme2;

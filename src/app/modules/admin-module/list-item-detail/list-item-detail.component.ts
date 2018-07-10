@@ -22,8 +22,8 @@ export class ListItemDetailComponent implements OnInit, OnDestroy {
       return this.itemsService.getSingleItem(params.get('id'));
     }).subscribe(item => {
       this.item = item;
-      this.slides.push({src:environment.url+'/foto/'+this.item.id,hidden:false});
-      this.initSlides();});
+    });
+
   }
 
 
@@ -35,32 +35,4 @@ export class ListItemDetailComponent implements OnInit, OnDestroy {
   }
 
 
-  currentSlide(num){
-    this.slides.forEach(slide => {
-      if(!slide.hidden){
-        slide.hidden = true;
-        this.slides[num].hidden=false;
-        return;
-      }
-    });
-  }
-
-  initSlides(){
-    this.itemsService.putForPhotoList(this.item).subscribe(pathList => {
-      console.log(pathList);
-      pathList.forEach(path => this.slides.push({src:encodeURI(path),hidden:true}))
-    });
-  }
-
-  plusSlides(dir){
-    for(let i = 0;i < this.slides.length;i++){
-      if(!this.slides[i].hidden){
-        this.slides[i].hidden = true;
-        let f = i+dir;
-        if(i==0 && dir ==-1)f = 2;
-        this.slides[Math.abs(f)%this.slides.length].hidden=false;
-        break;
-      }
-    }
-  }
 }

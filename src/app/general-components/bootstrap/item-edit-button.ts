@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 export class ItemsEditButton implements ICellRendererAngularComp{
 
   params;
+  itemId;
 
   constructor(public service:AdminService,private router:Router) {
   }
@@ -18,6 +19,7 @@ export class ItemsEditButton implements ICellRendererAngularComp{
 
   agInit(params: ICellRendererParams): void {
     this.params = params;
+    this.itemId = params.data.id;
   }
 
 
@@ -28,5 +30,6 @@ export class ItemsEditButton implements ICellRendererAngularComp{
 
   makeUpdate(event: any): void {
     event.stopPropagation();
+    this.router.navigate(['/adminMod/editItem/' + this.itemId]);
   }
 }

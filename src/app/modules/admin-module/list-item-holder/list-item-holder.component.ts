@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {Subscription} from "rxjs/Subscription";
@@ -19,8 +19,13 @@ export class ListItemHolderComponent implements OnInit ,OnDestroy {
   modalEnsureSubjectSubs:Subscription;
 
   itemIdToDelete;
+  resizeListener:any;
 
-  constructor(private activatedRoute:ActivatedRoute,private router:Router,private modalService:NgbModal,private adminService:AdminService) { }
+  constructor(private activatedRoute:ActivatedRoute,
+              private router:Router,
+              private modalService:NgbModal,
+              private adminService:AdminService,
+              private renderer:Renderer2) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(res =>{
@@ -35,11 +40,26 @@ export class ListItemHolderComponent implements OnInit ,OnDestroy {
     })
   }
 
+  // @HostListener('window:resize')
+  // onResize(ev){
+  //   if(window.innerWidth < 1200){
+  //     this.useClass = 'col-12';
+  //   }
+  //   else this.useClass = 'col-6';
+  // }
+
   detailsActivated(event){
     this.useClass = 'col-6';
+    this.resizeListener = this.renderer.listen('window','resize',() => {
+        if(window.innerWidth < 1200){
+          this.useClass = 'col-12';
+        }
+        else this.useClass = 'col-6';
+    })
   }
 
   detailsDeactivated(event){
+    this.resizeListener();
     this.useClass = 'col-12'
   }
 
