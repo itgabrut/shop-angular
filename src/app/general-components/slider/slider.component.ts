@@ -16,6 +16,8 @@ export class SliderComponent implements OnInit, OnChanges, OnDestroy {
   slides:any[] = [];
   private _item:Item;
   @Input()slideMargin:boolean;
+  @Input()imageSize = 'fixed_narrow';
+  @Input()narrowClasses = ['prev','next','numbertext'];
 
 
  get item(): Item {

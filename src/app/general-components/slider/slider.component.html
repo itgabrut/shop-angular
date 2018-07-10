@@ -1,19 +1,19 @@
 
 
 <div *ngFor="let img of slides;let i = index" [hidden]="img.hidden" [class.mySlides]="slideMargin">
-  <div class="numbertext">{{i+1}} / {{slides.length}}</div>
-  <img *ngIf="i==0" [src]="img.src" style="width:100%" class="img-responsive fixed">
+  <div [class]="narrowClasses[2]">{{i+1}} / {{slides.length}}</div>
+  <img *ngIf="i==0" [src]="img.src" style="width:100%" class="img-responsive" [class]="imageSize">
   <img *ngIf="i!==0" [src]="'http://localhost:8080/fotos?path='+img.src" style="width:100%"
-       class="img-responsive fixed">
+       class="img-responsive" [class]="imageSize">
 </div>
 
 <!-- Next and previous buttons -->
-<a class="prev" (click)="plusSlides(-1)">&#10094;</a>
-<a class="next" (click)="plusSlides(1)">&#10095;</a>
+<a [class]="narrowClasses[0]" (click)="plusSlides(-1)">&#10094;</a>
+<a [class]="narrowClasses[1]" (click)="plusSlides(1)">&#10095;</a>
 
 <!-- Image text -->
 <div class="caption-container">
-  <p id="caption">asdadasdasdasdasdasdasd</p>
+  <p id="caption">{{item.name}}</p>
 </div>
 
 <!-- Thumbnail images -->
