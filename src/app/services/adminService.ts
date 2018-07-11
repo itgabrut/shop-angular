@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Order} from "../objects/order";
 import {environment} from "../../environments/environment";
-import {HttpParamsOptions} from "@angular/common/http/src/params";
 import {User} from "../objects/user";
 import moment = require("moment");
 import {Item} from "../objects/item";
@@ -21,6 +20,7 @@ export class AdminService{
 
   modalEnsureSubject:Subject<any> = new Subject();
   itemsSubject:Subject<Item[]> = new Subject();
+  sliderPhotoSubject:Subject<any> = new Subject();
 
   getOrders():Observable<Order[]>{
     return <Observable<Order[]>>this.http.get(environment.url+environment.adminPrefix+environment.gates.order);
@@ -72,6 +72,10 @@ export class AdminService{
     return this.http.post(environment.url+environment.adminPrefix+'/postItem',formData)
   }
 
+  putItem(dataObject:FormData):Observable<any>{
+    return this.http.post(environment.url+environment.adminPrefix+'/putItem',dataObject)
+  }
+
   deleteItem(id){
 
     return this.http.post(environment.url+environment.adminPrefix+environment.gates.removeItem,
@@ -79,6 +83,11 @@ export class AdminService{
       {
       headers: new HttpHeaders().set("Content-type", 'application/x-www-form-urlencoded')
     })
+  }
+
+  activator(itemId,isActive){
+    return this.http.get(environment.url+environment.adminPrefix+'/activateItem/'+itemId,{params : {active: isActive}})
+
   }
 
 

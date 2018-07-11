@@ -1,9 +1,9 @@
 
-
+<div *ngIf="deletableSlide" class="myButton"><input type="button" value="" (click)="removeImage()"></div>
 <div *ngFor="let img of slides;let i = index" [hidden]="img.hidden" [class.mySlides]="slideMargin">
   <div [class]="narrowClasses[2]">{{i+1}} / {{slides.length}}</div>
   <img *ngIf="i==0" [src]="img.src" style="width:100%" class="img-responsive" [class]="imageSize">
-  <img *ngIf="i!==0" [src]="'http://localhost:8080/fotos?path='+img.src" style="width:100%"
+  <img *ngIf="i!==0" [src]="img.src" style="width:100%"
        class="img-responsive" [class]="imageSize">
 </div>
 
@@ -21,7 +21,7 @@
   <div style="margin-left: 4%">
     <div *ngFor="let img of slides;let i = index" class="column">
       <img *ngIf="i==0" class="demo cursor" [src]="img.src" style="width: 100%" (click)="currentSlide(i)">
-      <img *ngIf="i!=0" class="demo cursor" [src]="'http://localhost:8080/fotos?path='+img.src"
+      <img *ngIf="i!=0" class="demo cursor" [src]="img.src"
            style="width:100%" (click)="currentSlide(i)" alt="The Woods">
     </div>
 

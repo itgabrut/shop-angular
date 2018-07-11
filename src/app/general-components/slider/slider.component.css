@@ -106,5 +106,22 @@
   margin: 5%;
 }
 
+div.myButton input {
+  background:url(../../../assets/if_Close_22138.png) no-repeat;
+  cursor:pointer;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  /*margin-top: 3rem;*/
+  margin-left: 1rem;
+  position: relative;
+  top: 4rem;
+  left: 28.5rem;
+}
+div.myButton{
+  height: 0rem;
+  width: 0px;
+}
+
 
 

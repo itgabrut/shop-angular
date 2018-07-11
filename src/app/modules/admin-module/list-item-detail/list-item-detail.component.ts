@@ -19,7 +19,7 @@ export class ListItemDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.activatedRoute.paramMap.switchMap(params => {
-      return this.itemsService.getSingleItem(params.get('id'));
+      return this.itemsService.getSingleItemAdmin(params.get('id'));
     }).subscribe(item => {
       this.item = item;
     });

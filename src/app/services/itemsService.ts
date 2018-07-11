@@ -73,6 +73,10 @@ export class ItemsService{
    return this.http.get(environment.url+environment.gates.item, {params : new HttpParams().set('id',id)})
   }
 
+  getSingleItemAdmin(id):Observable<any>{
+    return this.http.get(environment.url+environment.adminPrefix+environment.gates.item,{params : {id:id}})
+  }
+
   addToBucket(item:Item){
      this.cache.get('bucket',Observable.of(new Bucket())).subscribe((bucket:Bucket) =>{
        bucket.addItems(item);

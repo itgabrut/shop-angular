@@ -17,11 +17,12 @@
           <hr>
           <div class="row">
           <h2 style="color: crimson">{{item.active ? 'Active' : 'Disabled'}}</h2>
-            <button style="margin-left: 3rem" class="btn btn-danger">{{item.active ? 'Disable' : 'Activate'}}</button>
+            <button (click)="activator()" style="margin-left: 3rem" class="btn btn-danger">{{item.active ? 'Disable' : 'Activate'}}</button>
           </div>
         </div>
       </div>
-      <app-slider [item]="item" [slideMargin]="true" [narrowClasses]="customNarrowClasses"></app-slider>
+
+      <app-slider [item]="item" [slideMargin]="true" [narrowClasses]="customNarrowClasses" [enableCloseSign]="true"></app-slider>
 
     </div>
     <div class="col-10 col-lg-6" style="padding: 3%">
@@ -52,6 +53,12 @@
           <label for="theme2" class="col-9 col-sm-3 col-form-label">Catalog path (eng)</label>
           <div class="col-9">
             <input [(ngModel)]="item.theme2" #theme2="ngModel" class="form-control" id="theme2" type="text" name="theme2">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="availability" class="col-9 col-sm-3 col-form-label">In stock</label>
+          <div class="col-9">
+            <input [(ngModel)]="item.quantity"  class="form-control" id="availability" type="number" min="0" name="quantity">
           </div>
         </div>
         <div class="form-group row">
@@ -95,7 +102,7 @@
           </div>
         </div>
         <hr>
-        <button type="button" class="btn btn-primary">Add Item</button>
+        <button type="button" class="btn btn-primary" (click)="submitChanges(form)">Submit changes</button>
       </form>
     </div>
   </div>

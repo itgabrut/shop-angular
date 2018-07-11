@@ -22,6 +22,8 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.1",
+    "@ngx-progressbar/core": "^4.3.0",
+    "@ngx-progressbar/http": "^4.3.0",
     "ag-grid": "^17.1.1",
     "ag-grid-angular": "^17.1.0",
     "angular-tree-component": "^7.0.1",

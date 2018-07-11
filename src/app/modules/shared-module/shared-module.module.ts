@@ -14,13 +14,16 @@ import {ItemsRemoveButton} from "../../general-components/bootstrap/item-remove-
 import {CheckBoxComponent} from "../../general-components/bootstrap/checkbox-component";
 import {SliderComponent} from "../../general-components/slider/slider.component";
 
+
+
 @NgModule({
   imports: [
     AgGridModule.withComponents([Dropdown, DatePicker,ClientUpdateButton,OrderUpdateButton, ItemsRemoveButton,
       ItemsEditButton,CheckBoxComponent]),
     NgbModule.forRoot(),
     FormsModule,
-    CommonModule
+    CommonModule,
+
   ],
   declarations: [
     Dropdown,

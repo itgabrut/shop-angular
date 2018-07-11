@@ -41,6 +41,8 @@ import {DatePicker} from "./general-components/bootstrap/datepicker";
 import {ClientUpdateButton} from "./general-components/bootstrap/client-update-button";
 import {SharedModule} from "./modules/shared-module/shared-module.module";
 import {ExistingEmailValidatorDirective} from "./directives/email-validation-directive";
+import {NgProgressModule} from "@ngx-progressbar/core";
+import {NgProgressHttpModule} from "@ngx-progressbar/http";
 
 
 @NgModule({
@@ -72,6 +74,13 @@ import {ExistingEmailValidatorDirective} from "./directives/email-validation-dir
     NgbModule.forRoot(),
     TreeModule,
     HttpClientModule,
+    NgProgressModule.forRoot({
+      spinnerPosition: 'left',
+      color: '#f71cff',
+      thick: true,
+      meteor:false
+    }),
+    NgProgressHttpModule,
     AppRouterModule,
     SharedModule
   ],
